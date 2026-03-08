@@ -1,0 +1,1242 @@
+2026-03-08T14:47:11.846Z vite:config config file loaded in 496.06ms
+2026-03-08T14:47:11.850Z vite:env loading env files: [
+  'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/.env',
+  'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/.env.local',
+  'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/.env.development',
+  'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/.env.development.local'
+]
+2026-03-08T14:47:11.851Z vite:env env files loaded in 2.07ms
+2026-03-08T14:47:11.852Z vite:env using resolved env: {}
+2026-03-08T14:47:11.878Z vite:config using resolved config: {
+  plugins: [
+    'vite:optimized-deps',
+    'vite:watch-package-data',
+    'vite:pre-alias',
+    'alias',
+    'vite:react-babel',
+    'vite:react-refresh',
+    'vite:modulepreload-polyfill',
+    'vite:resolve',
+    'vite:html-inline-proxy',
+    'vite:css',
+    'vite:esbuild',
+    'vite:json',
+    'vite:wasm-helper',
+    'vite:worker',
+    'vite:asset',
+    'vite:react-virtual-preamble',
+    'vite:wasm-fallback',
+    'vite:define',
+    'vite:css-post',
+    'vite:worker-import-meta-url',
+    'vite:asset-import-meta-url',
+    'vite:dynamic-import-vars',
+    'vite:import-glob',
+    'vite:client-inject',
+    'vite:css-analysis',
+    'vite:import-analysis'
+  ],
+  server: {
+    port: 5173,
+    strictPort: false,
+    host: undefined,
+    allowedHosts: [],
+    https: undefined,
+    open: false,
+    proxy: undefined,
+    cors: {
+      origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/
+    },
+    headers: {},
+    warmup: { clientFiles: [], ssrFiles: [] },
+    middlewareMode: false,
+    fs: {
+      strict: true,
+      deny: [ '.env', '.env.*', '*.{crt,pem}', '**/.git/**' ],
+      allow: [ 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail' ]
+    },
+    preTransformRequests: true,
+    perEnvironmentStartEndDuringDev: false,
+    perEnvironmentWatchChangeDuringDev: false,
+    sourcemapIgnoreList: [Function: isInNodeModules]
+  },
+  esbuild: {
+    jsxDev: true,
+    charset: 'utf8',
+    legalComments: 'none',
+    jsx: 'automatic',
+    jsxImportSource: undefined
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react/jsx-dev-runtime',
+      'react/jsx-runtime'
+    ],
+    exclude: [],
+    needsInterop: [],
+    extensions: [],
+    disabled: undefined,
+    holdUntilCrawlEnd: true,
+    force: false,
+    ignoreOutdatedRequests: false,
+    noDiscovery: false,
+    esbuildOptions: { preserveSymlinks: false, jsx: 'automatic' }
+  },
+  build: {
+    target: [ 'chrome107', 'edge107', 'firefox104', 'safari16' ],
+    polyfillModulePreload: true,
+    modulePreload: { polyfill: true },
+    outDir: 'dist',
+    assetsDir: 'assets',
+    assetsInlineLimit: 4096,
+    sourcemap: false,
+    terserOptions: {},
+    rollupOptions: { onwarn: [Function: onwarn] },
+    commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+    dynamicImportVarsOptions: { warnOnError: true, exclude: [ /node_modules/ ] },
+    write: true,
+    emptyOutDir: null,
+    copyPublicDir: true,
+    license: false,
+    manifest: false,
+    lib: false,
+    ssrManifest: false,
+    ssrEmitAssets: false,
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 500,
+    watch: null,
+    cssCodeSplit: true,
+    minify: 'esbuild',
+    ssr: false,
+    emitAssets: false,
+    createEnvironment: [Function: createEnvironment],
+    cssTarget: [ 'chrome107', 'edge107', 'firefox104', 'safari16' ],
+    cssMinify: true
+  },
+  environments: {
+    client: {
+      define: undefined,
+      resolve: {
+        externalConditions: [ 'node', 'module-sync' ],
+        extensions: [
+          '.mjs',  '.js',
+          '.mts',  '.ts',
+          '.jsx',  '.tsx',
+          '.json'
+        ],
+        dedupe: [],
+        noExternal: [],
+        external: [],
+        preserveSymlinks: false,
+        alias: [
+          {
+            find: /^\/?@vite\/env/,
+            replacement: '/@fs/D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/env.mjs'
+          },
+          {
+            find: /^\/?@vite\/client/,
+            replacement: '/@fs/D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/client.mjs'
+          }
+        ],
+        mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext' ],
+        conditions: [ 'module', 'browser', 'development|production' ],
+        builtins: []
+      },
+      keepProcessEnv: false,
+      consumer: 'client',
+      optimizeDeps: {
+        include: [
+          'react',
+          'react-dom',
+          'react/jsx-dev-runtime',
+          'react/jsx-runtime'
+        ],
+        exclude: [],
+        needsInterop: [],
+        extensions: [],
+        disabled: undefined,
+        holdUntilCrawlEnd: true,
+        force: false,
+        ignoreOutdatedRequests: false,
+        noDiscovery: false,
+        esbuildOptions: { preserveSymlinks: false, jsx: 'automatic' }
+      },
+      dev: {
+        warmup: [],
+        sourcemap: { js: true },
+        sourcemapIgnoreList: [Function: isInNodeModules],
+        preTransformRequests: true,
+        createEnvironment: [Function: defaultCreateClientDevEnvironment],
+        recoverable: true,
+        moduleRunnerTransform: false
+      },
+      build: {
+        target: [ 'chrome107', 'edge107', 'firefox104', 'safari16' ],
+        polyfillModulePreload: true,
+        modulePreload: { polyfill: true },
+        outDir: 'dist',
+        assetsDir: 'assets',
+        assetsInlineLimit: 4096,
+        sourcemap: false,
+        terserOptions: {},
+        rollupOptions: { onwarn: [Function: onwarn] },
+        commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+        dynamicImportVarsOptions: { warnOnError: true, exclude: [ /node_modules/ ] },
+        write: true,
+        emptyOutDir: null,
+        copyPublicDir: true,
+        license: false,
+        manifest: false,
+        lib: false,
+        ssrManifest: false,
+        ssrEmitAssets: false,
+        reportCompressedSize: true,
+        chunkSizeWarningLimit: 500,
+        watch: null,
+        cssCodeSplit: true,
+        minify: 'esbuild',
+        ssr: false,
+        emitAssets: true,
+        createEnvironment: [Function: createEnvironment],
+        cssTarget: [ 'chrome107', 'edge107', 'firefox104', 'safari16' ],
+        cssMinify: true
+      },
+      plugins: [
+        {
+          name: 'vite:optimized-deps',
+          applyToEnvironment: [Function: applyToEnvironment],
+          resolveId: [Function: resolveId],
+          load: [AsyncFunction: load]
+        },
+        {
+          name: 'vite:watch-package-data',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'vite:pre-alias',
+          applyToEnvironment: [Function: applyToEnvironment],
+          resolveId: [AsyncFunction: resolveId]
+        },
+        {
+          name: 'alias',
+          buildStart: [AsyncFunction: buildStart],
+          resolveId: [Function: resolveId]
+        },
+        {
+          name: 'vite:react-babel',
+          enforce: 'pre',
+          config: [Function: config],
+          configResolved: [Function: configResolved],
+          options: [Function: options],
+          transform: {
+            filter: {
+              id: {
+                include: /\.[tj]sx?(?:\?.*)?$/,
+                exclude: /\/node_modules\//
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:react-refresh',
+          enforce: 'pre',
+          config: [Function: config],
+          resolveId: {
+            filter: { id: /^\/@react\-refresh$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^\/@react\-refresh$/ },
+            handler: [Function: handler]
+          },
+          transformIndexHtml: [Function: transformIndexHtml]
+        },
+        {
+          name: 'vite:modulepreload-polyfill',
+          resolveId: {
+            filter: { id: /^vite\/modulepreload\-polyfill$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/modulepreload\-polyfill\.js$/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:resolve',
+          resolveId: {
+            filter: { id: { exclude: /^(?:\0|\/?virtual:)/ } },
+            handler: [AsyncFunction: handler]
+          },
+          load: {
+            filter: {
+              id: [
+                /^__vite\-browser\-external/,
+                /^__vite\-optional\-peer\-dep/
+              ]
+            },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:html-inline-proxy',
+          resolveId: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:css',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          load: {
+            filter: {
+              id: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
+            },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:esbuild',
+          configureServer: [Function: configureServer],
+          transform: [AsyncFunction: transform]
+        },
+        {
+          name: 'vite:json',
+          transform: {
+            filter: {
+              id: {
+                include: /\.json(?:$|\?)(?!commonjs-(?:proxy|external))/,
+                exclude: /[?&](?:worker|sharedworker|raw|url)\b/
+              }
+            },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:wasm-helper',
+          resolveId: {
+            filter: { id: /^ vite\/wasm\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: {
+              id: [
+                /^ vite\/wasm\-helper\.js$/,
+                /(?<![?#].*)\.wasm\?init/
+              ]
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:worker',
+          buildStart: [Function: buildStart],
+          load: {
+            filter: { id: /(?:\?|&)(worker|sharedworker)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: { id: /(?:\?|&)worker_file&type=(\w+)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: [Function: renderChunk],
+          generateBundle: [Function: generateBundle],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'vite:asset',
+          perEnvironmentStartEndDuringDev: true,
+          buildStart: [Function: buildStart],
+          resolveId: { handler: [Function: handler] },
+          load: {
+            filter: { id: { exclude: /^\0/ } },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: [Function: renderChunk],
+          generateBundle: [Function: generateBundle]
+        },
+        {
+          name: 'vite:react-virtual-preamble',
+          resolveId: {
+            order: 'pre',
+            filter: { id: /^@vitejs\/plugin\-react\/preamble$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ @vitejs\/plugin\-react\/preamble$/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:wasm-fallback',
+          load: { filter: { id: /\.wasm$/ }, handler: [Function: handler] }
+        },
+        {
+          name: 'vite:define',
+          transform: { handler: [AsyncFunction: handler] }
+        },
+        {
+          name: 'vite:css-post',
+          renderStart: [Function: renderStart],
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: [AsyncFunction: renderChunk],
+          augmentChunkHash: [Function: augmentChunkHash],
+          generateBundle: [AsyncFunction: generateBundle]
+        },
+        {
+          name: 'vite:worker-import-meta-url',
+          applyToEnvironment: [Function: applyToEnvironment],
+          transform: {
+            filter: {
+              code: /new\s+(?:Worker|SharedWorker)\s*\(\s*new\s+URL.+?import\.meta\.url/s
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:asset-import-meta-url',
+          applyToEnvironment: [Function: applyToEnvironment],
+          transform: {
+            filter: {
+              id: {
+                exclude: [
+                  /^ vite\/preload\-helper\.js$/,
+                  /^D:\\D드라이브 백업자료\\개인파일\\App 개발\\PayTrail\\node_modules\\vite\\dist\\client\\client\.mjs$/
+                ]
+              },
+              code: /new\s+URL.+import\.meta\.url/s
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:dynamic-import-vars',
+          resolveId: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                exclude: /^D:\\D드라이브 백업자료\\개인파일\\App 개발\\PayTrail\\node_modules\\vite\\dist\\client\\client\.mjs$/
+              },
+              code: /\bimport\s*[(/]/
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-glob',
+          buildStart: [Function: buildStart],
+          transform: {
+            filter: { code: 'import.meta.glob' },
+            handler: [AsyncFunction: handler]
+          },
+          hotUpdate: [Function: hotUpdate]
+        },
+        {
+          name: 'vite:client-inject',
+          buildStart: [AsyncFunction: buildStart],
+          transform: [AsyncFunction: transform]
+        },
+        {
+          name: 'vite:css-analysis',
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-analysis',
+          transform: [AsyncFunction: transform]
+        }
+      ]
+    },
+    ssr: {
+      define: undefined,
+      resolve: {
+        externalConditions: [ 'node', 'module-sync' ],
+        extensions: [
+          '.mjs',  '.js',
+          '.mts',  '.ts',
+          '.jsx',  '.tsx',
+          '.json'
+        ],
+        dedupe: [],
+        noExternal: [],
+        external: [],
+        preserveSymlinks: false,
+        alias: [
+          {
+            find: /^\/?@vite\/env/,
+            replacement: '/@fs/D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/env.mjs'
+          },
+          {
+            find: /^\/?@vite\/client/,
+            replacement: '/@fs/D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/client.mjs'
+          }
+        ],
+        mainFields: [ 'module', 'jsnext:main', 'jsnext' ],
+        conditions: [ 'module', 'node', 'development|production' ],
+        builtins: [
+          '_http_agent',         '_http_client',        '_http_common',
+          '_http_incoming',      '_http_outgoing',      '_http_server',
+          '_stream_duplex',      '_stream_passthrough', '_stream_readable',
+          '_stream_transform',   '_stream_wrap',        '_stream_writable',
+          '_tls_common',         '_tls_wrap',           'assert',
+          'assert/strict',       'async_hooks',         'buffer',
+          'child_process',       'cluster',             'console',
+          'constants',           'crypto',              'dgram',
+          'diagnostics_channel', 'dns',                 'dns/promises',
+          'domain',              'events',              'fs',
+          'fs/promises',         'http',                'http2',
+          'https',               'inspector',           'inspector/promises',
+          'module',              'net',                 'os',
+          'path',                'path/posix',          'path/win32',
+          'perf_hooks',          'process',             'punycode',
+          'querystring',         'readline',            'readline/promises',
+          'repl',                'stream',              'stream/consumers',
+          'stream/promises',     'stream/web',          'string_decoder',
+          'sys',                 'timers',              'timers/promises',
+          'tls',                 'trace_events',        'tty',
+          'url',                 'util',                'util/types',
+          'v8',                  'vm',                  'wasi',
+          'worker_threads',      'zlib',                /^node:/,
+          /^bun:/
+        ]
+      },
+      keepProcessEnv: true,
+      consumer: 'server',
+      optimizeDeps: {
+        include: [],
+        exclude: [],
+        needsInterop: [],
+        extensions: [],
+        disabled: undefined,
+        holdUntilCrawlEnd: true,
+        force: false,
+        ignoreOutdatedRequests: false,
+        noDiscovery: true,
+        esbuildOptions: { preserveSymlinks: false }
+      },
+      dev: {
+        warmup: [],
+        sourcemap: { js: true },
+        sourcemapIgnoreList: [Function: isInNodeModules],
+        preTransformRequests: false,
+        createEnvironment: [Function: defaultCreateDevEnvironment],
+        recoverable: false,
+        moduleRunnerTransform: true
+      },
+      build: {
+        target: [ 'chrome107', 'edge107', 'firefox104', 'safari16' ],
+        polyfillModulePreload: true,
+        modulePreload: { polyfill: true },
+        outDir: 'dist',
+        assetsDir: 'assets',
+        assetsInlineLimit: 4096,
+        sourcemap: false,
+        terserOptions: {},
+        rollupOptions: { onwarn: [Function: onwarn] },
+        commonjsOptions: { include: [ /node_modules/ ], extensions: [ '.js', '.cjs' ] },
+        dynamicImportVarsOptions: { warnOnError: true, exclude: [ /node_modules/ ] },
+        write: true,
+        emptyOutDir: null,
+        copyPublicDir: true,
+        license: false,
+        manifest: false,
+        lib: false,
+        ssrManifest: false,
+        ssrEmitAssets: false,
+        reportCompressedSize: true,
+        chunkSizeWarningLimit: 500,
+        watch: null,
+        cssCodeSplit: true,
+        minify: false,
+        ssr: true,
+        emitAssets: false,
+        createEnvironment: [Function: createEnvironment],
+        cssTarget: [ 'chrome107', 'edge107', 'firefox104', 'safari16' ],
+        cssMinify: 'esbuild'
+      },
+      plugins: [
+        {
+          name: 'vite:watch-package-data',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'alias',
+          buildStart: [AsyncFunction: buildStart],
+          resolveId: [Function: resolveId]
+        },
+        {
+          name: 'vite:react-babel',
+          enforce: 'pre',
+          config: [Function: config],
+          configResolved: [Function: configResolved],
+          options: [Function: options],
+          transform: {
+            filter: {
+              id: {
+                include: /\.[tj]sx?(?:\?.*)?$/,
+                exclude: /\/node_modules\//
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:react-refresh',
+          enforce: 'pre',
+          config: [Function: config],
+          resolveId: {
+            filter: { id: /^\/@react\-refresh$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^\/@react\-refresh$/ },
+            handler: [Function: handler]
+          },
+          transformIndexHtml: [Function: transformIndexHtml]
+        },
+        {
+          name: 'vite:modulepreload-polyfill',
+          resolveId: {
+            filter: { id: /^vite\/modulepreload\-polyfill$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/modulepreload\-polyfill\.js$/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:resolve',
+          resolveId: {
+            filter: { id: { exclude: /^(?:\0|\/?virtual:)/ } },
+            handler: [AsyncFunction: handler]
+          },
+          load: {
+            filter: {
+              id: [
+                /^__vite\-browser\-external/,
+                /^__vite\-optional\-peer\-dep/
+              ]
+            },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:html-inline-proxy',
+          resolveId: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /[?&]html-proxy\b/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:css',
+          buildStart: [Function: buildStart],
+          buildEnd: [Function: buildEnd],
+          load: {
+            filter: {
+              id: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
+            },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:esbuild',
+          configureServer: [Function: configureServer],
+          transform: [AsyncFunction: transform]
+        },
+        {
+          name: 'vite:json',
+          transform: {
+            filter: {
+              id: {
+                include: /\.json(?:$|\?)(?!commonjs-(?:proxy|external))/,
+                exclude: /[?&](?:worker|sharedworker|raw|url)\b/
+              }
+            },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:wasm-helper',
+          resolveId: {
+            filter: { id: /^ vite\/wasm\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: {
+              id: [
+                /^ vite\/wasm\-helper\.js$/,
+                /(?<![?#].*)\.wasm\?init/
+              ]
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:worker',
+          buildStart: [Function: buildStart],
+          load: {
+            filter: { id: /(?:\?|&)(worker|sharedworker)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          transform: {
+            filter: { id: /(?:\?|&)worker_file&type=(\w+)(?:&|$)/ },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: [Function: renderChunk],
+          generateBundle: [Function: generateBundle],
+          watchChange: [Function: watchChange]
+        },
+        {
+          name: 'vite:asset',
+          perEnvironmentStartEndDuringDev: true,
+          buildStart: [Function: buildStart],
+          resolveId: { handler: [Function: handler] },
+          load: {
+            filter: { id: { exclude: /^\0/ } },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: [Function: renderChunk],
+          generateBundle: [Function: generateBundle]
+        },
+        {
+          name: 'vite:react-virtual-preamble',
+          resolveId: {
+            order: 'pre',
+            filter: { id: /^@vitejs\/plugin\-react\/preamble$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ @vitejs\/plugin\-react\/preamble$/ },
+            handler: [Function: handler]
+          }
+        },
+        {
+          name: 'vite:wasm-fallback',
+          load: { filter: { id: /\.wasm$/ }, handler: [Function: handler] }
+        },
+        {
+          name: 'vite:define',
+          transform: { handler: [AsyncFunction: handler] }
+        },
+        {
+          name: 'vite:css-post',
+          renderStart: [Function: renderStart],
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          },
+          renderChunk: [AsyncFunction: renderChunk],
+          augmentChunkHash: [Function: augmentChunkHash],
+          generateBundle: [AsyncFunction: generateBundle]
+        },
+        {
+          name: 'vite:dynamic-import-vars',
+          resolveId: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          load: {
+            filter: { id: /^ vite\/dynamic\-import\-helper\.js$/ },
+            handler: [Function: handler]
+          },
+          transform: {
+            filter: {
+              id: {
+                exclude: /^D:\\D드라이브 백업자료\\개인파일\\App 개발\\PayTrail\\node_modules\\vite\\dist\\client\\client\.mjs$/
+              },
+              code: /\bimport\s*[(/]/
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-glob',
+          buildStart: [Function: buildStart],
+          transform: {
+            filter: { code: 'import.meta.glob' },
+            handler: [AsyncFunction: handler]
+          },
+          hotUpdate: [Function: hotUpdate]
+        },
+        {
+          name: 'vite:client-inject',
+          buildStart: [AsyncFunction: buildStart],
+          transform: [AsyncFunction: transform]
+        },
+        {
+          name: 'vite:css-analysis',
+          transform: {
+            filter: {
+              id: {
+                include: /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/,
+                exclude: [
+                  /[?&]commonjs-proxy/,
+                  /[?&](?:worker|sharedworker|raw|url)\b/
+                ]
+              }
+            },
+            handler: [AsyncFunction: handler]
+          }
+        },
+        {
+          name: 'vite:import-analysis',
+          transform: [AsyncFunction: transform]
+        }
+      ]
+    }
+  },
+  resolve: {
+    externalConditions: [ 'node', 'module-sync' ],
+    extensions: [
+      '.mjs',  '.js',
+      '.mts',  '.ts',
+      '.jsx',  '.tsx',
+      '.json'
+    ],
+    dedupe: [],
+    noExternal: [],
+    external: [],
+    preserveSymlinks: false,
+    alias: [
+      {
+        find: /^\/?@vite\/env/,
+        replacement: '/@fs/D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/env.mjs'
+      },
+      {
+        find: /^\/?@vite\/client/,
+        replacement: '/@fs/D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/client.mjs'
+      }
+    ],
+    mainFields: [ 'browser', 'module', 'jsnext:main', 'jsnext' ],
+    conditions: [ 'module', 'browser', 'development|production' ],
+    builtins: []
+  },
+  configFile: 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/vite.config.ts',
+  configFileDependencies: [ 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/vite.config.ts' ],
+  inlineConfig: {
+    root: undefined,
+    base: undefined,
+    mode: undefined,
+    configFile: undefined,
+    configLoader: undefined,
+    logLevel: undefined,
+    clearScreen: undefined,
+    server: { host: undefined },
+    forceOptimizeDeps: undefined
+  },
+  root: 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail',
+  base: '/',
+  decodedBase: '/',
+  rawBase: '/',
+  publicDir: 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/public',
+  cacheDir: 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite',
+  command: 'serve',
+  mode: 'development',
+  isWorker: false,
+  mainConfig: null,
+  bundleChain: [],
+  isProduction: false,
+  css: {
+    transformer: 'postcss',
+    preprocessorMaxWorkers: true,
+    devSourcemap: false
+  },
+  json: { namedExports: true, stringify: 'auto' },
+  builder: undefined,
+  preview: {
+    port: 4173,
+    strictPort: false,
+    host: undefined,
+    allowedHosts: [],
+    https: undefined,
+    open: false,
+    proxy: undefined,
+    cors: {
+      origin: /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/
+    },
+    headers: {}
+  },
+  envDir: 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail',
+  env: { BASE_URL: '/', MODE: 'development', DEV: true, PROD: false },
+  assetsInclude: [Function: assetsInclude],
+  logger: {
+    hasWarned: false,
+    info: [Function: info],
+    warn: [Function: warn],
+    warnOnce: [Function: warnOnce],
+    error: [Function: error],
+    clearScreen: [Function: clearScreen],
+    hasErrorLogged: [Function: hasErrorLogged]
+  },
+  packageCache: Map(1) {
+    'fnpd_D:/D드라이브 백업자료/개인파일/App 개발/PayTrail' => {
+      dir: 'D:/D드라이브 백업자료/개인파일/App 개발/PayTrail',
+      data: {
+        name: 'paytrail-app',
+        private: true,
+        version: '0.0.0',
+        type: 'module',
+        scripts: {
+          dev: 'vite',
+          build: 'tsc && vite build',
+          lint: 'eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0',
+          preview: 'vite preview'
+        },
+        dependencies: {
+          'canvas-confetti': '^1.9.4',
+          clsx: '^2.1.1',
+          'date-fns': '^4.1.0',
+          'framer-motion': '^12.35.1',
+          jspdf: '^4.2.0',
+          'jspdf-autotable': '^5.0.7',
+          'lucide-react': '^0.577.0',
+          react: '^19.2.4',
+          'react-dom': '^19.2.4',
+          'tailwind-merge': '^3.5.0',
+          uuid: '^13.0.0',
+          zustand: '^5.0.11'
+        },
+        devDependencies: {
+          '@types/canvas-confetti': '^1.9.0',
+          '@types/node': '^25.3.5',
+          '@types/react': '^19.2.14',
+          '@types/react-dom': '^19.2.3',
+          '@types/uuid': '^10.0.0',
+          '@vitejs/plugin-react': '^5.1.4',
+          autoprefixer: '^10.4.27',
+          postcss: '^8.5.8',
+          tailwindcss: '^3.4.19',
+          typescript: '^5.9.3',
+          vite: '^7.3.1'
+        }
+      },
+      hasSideEffects: [Function: hasSideEffects],
+      setResolvedCache: [Function: setResolvedCache],
+      getResolvedCache: [Function: getResolvedCache]
+    },
+    set: [Function (anonymous)]
+  },
+  worker: { format: 'iife', plugins: '() => plugins', rollupOptions: {} },
+  appType: 'spa',
+  experimental: {
+    importGlobRestoreExtension: false,
+    renderBuiltUrl: undefined,
+    hmrPartialAccept: false
+  },
+  future: undefined,
+  ssr: {
+    target: 'node',
+    optimizeDeps: {
+      esbuildOptions: { preserveSymlinks: false },
+      include: [],
+      exclude: [],
+      needsInterop: [],
+      extensions: [],
+      holdUntilCrawlEnd: true,
+      force: false,
+      ignoreOutdatedRequests: false,
+      noDiscovery: true
+    },
+    external: [],
+    noExternal: [],
+    resolve: {
+      conditions: [ 'module', 'node', 'development|production' ],
+      externalConditions: [ 'node', 'module-sync' ]
+    }
+  },
+  dev: {
+    warmup: [],
+    sourcemap: { js: true },
+    sourcemapIgnoreList: [Function: isInNodeModules],
+    preTransformRequests: false,
+    createEnvironment: [Function: defaultCreateDevEnvironment],
+    recoverable: false,
+    moduleRunnerTransform: false
+  },
+  webSocketToken: '2f7G9xPDgObF',
+  getSortedPlugins: [Function: getSortedPlugins],
+  getSortedPluginHooks: [Function: getSortedPluginHooks],
+  createResolver: [Function: createResolver],
+  fsDenyGlob: [Function: arrayMatcher],
+  safeModulePaths: Set(0) {},
+  Symbol(vite:resolved-config): true
+}
+2026-03-08T14:47:11.928Z vite:deps (client) Hash is consistent. Skipping. Use --force to override.
+
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m1928[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+2026-03-08T14:47:16.710Z vite:html-fallback Rewriting GET / to /index.html
+2026-03-08T14:47:16.762Z vite:time [31m55.03ms[39m [2m/index.html[22m
+2026-03-08T14:47:16.764Z vite:resolve [32m7.94ms[39m [36m/src/main.tsx[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/main.tsx[22m
+2026-03-08T14:47:16.773Z vite:html-fallback Rewriting GET / to /index.html
+2026-03-08T14:47:16.797Z vite:load [33m29.99ms[39m [fs] [2m/src/main.tsx[22m
+2026-03-08T14:47:19.065Z vite:time [31m2294.85ms[39m [2m/index.html[22m
+2026-03-08T14:47:19.134Z vite:resolve [33m13.52ms[39m [36m./App.tsx[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/App.tsx[22m
+2026-03-08T14:47:19.134Z vite:resolve [33m13.72ms[39m [36m./index.css[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/index.css[22m
+2026-03-08T14:47:19.134Z vite:resolve [33m14.02ms[39m [36mreact/jsx-dev-runtime[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:19.135Z vite:resolve [33m13.96ms[39m [36mreact[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:19.135Z vite:resolve [33m13.96ms[39m [36mreact-dom/client[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/react-dom_client.js?v=f3890f5e[22m
+2026-03-08T14:47:19.136Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.138Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.140Z vite:optimize-deps load [36mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/react_jsx-dev-runtime.js[39m
+2026-03-08T14:47:19.140Z vite:optimize-deps load [36mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/react.js[39m
+2026-03-08T14:47:19.142Z vite:resolve [32m0.54ms[39m [36m/@vite/client[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/client.mjs[22m
+2026-03-08T14:47:19.145Z vite:import-analysis /node_modules/.vite/deps/react-dom_client.js?v=f3890f5e needs interop
+2026-03-08T14:47:19.146Z vite:import-analysis [33m27.06ms[39m [2m[5 imports rewritten] [2msrc/main.tsx[22m[2m[22m
+2026-03-08T14:47:19.149Z vite:transform [31m2350.83ms[39m [2m/src/main.tsx[22m
+2026-03-08T14:47:19.150Z vite:load [33m10.11ms[39m [plugin] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:19.151Z vite:resolve [32m0.16ms[39m [36m./chunk-BSNCPAQV.js[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/chunk-BSNCPAQV.js?v=38a9cadf[22m
+2026-03-08T14:47:19.151Z vite:optimize-deps load [36mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/chunk-BSNCPAQV.js[39m
+2026-03-08T14:47:19.151Z vite:import-analysis [32m1.31ms[39m [2m[1 imports rewritten] [2mnode_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m[2m[22m
+2026-03-08T14:47:19.152Z vite:transform [32m2.32ms[39m [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:19.152Z vite:load [33m12.74ms[39m [fs] [2m/src/index.css[22m
+2026-03-08T14:47:19.418Z vite:load [31m277.88ms[39m [plugin] [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:19.419Z vite:import-analysis [32m0.61ms[39m [2m[1 imports rewritten] [2mnode_modules/.vite/deps/react.js?v=38a9cadf[22m[2m[22m
+2026-03-08T14:47:19.419Z vite:transform [32m1.02ms[39m [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:19.419Z vite:load [31m280.42ms[39m [fs] [2m/src/App.tsx[22m
+2026-03-08T14:47:19.458Z vite:deps [32mnew dependencies found: [33mreact-dom/client[32m[39m
+2026-03-08T14:47:19.460Z vite:deps [32mcreating package.json in D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps_temp_aac72ac6[39m
+2026-03-08T14:47:19.466Z vite:cache [memory] [2m/src/main.tsx[22m
+2026-03-08T14:47:19.467Z vite:time [32m0.74ms[39m [2m/src/main.tsx[22m
+2026-03-08T14:47:19.488Z vite:resolve [33m19.45ms[39m [36m./store[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/store.ts[22m
+2026-03-08T14:47:19.488Z vite:resolve [33m19.65ms[39m [36m./components/dashboard/Dashboard[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/dashboard/Dashboard.tsx[22m
+2026-03-08T14:47:19.488Z vite:resolve [33m19.69ms[39m [36m./components/settings/SettingsPage[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/settings/SettingsPage.tsx[22m
+2026-03-08T14:47:19.489Z vite:resolve [33m19.72ms[39m [36m./components/modals/SubscriptionModal[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/modals/SubscriptionModal.tsx[22m
+2026-03-08T14:47:19.490Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.490Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.490Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:19.490Z vite:cache [memory] [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:19.490Z vite:hmr [self-accepts] [2msrc/App.tsx[22m
+2026-03-08T14:47:19.492Z vite:import-analysis [33m23.40ms[39m [2m[7 imports rewritten] [2msrc/App.tsx[22m[2m[22m
+2026-03-08T14:47:19.492Z vite:load [32m1.10ms[39m [plugin] [2m/@react-refresh[22m
+2026-03-08T14:47:19.493Z vite:transform [31m73.79ms[39m [2m/src/App.tsx[22m
+2026-03-08T14:47:19.497Z vite:import-analysis [32m0.56ms[39m [2m[0 imports rewritten] [2m/@react-refresh[22m[2m[22m
+2026-03-08T14:47:19.497Z vite:transform [32m4.99ms[39m [2m/@react-refresh[22m
+2026-03-08T14:47:19.497Z vite:cache [304] [2m/@react-refresh[22m
+2026-03-08T14:47:19.497Z vite:time [32m0.15ms[39m [2m/@react-refresh[22m
+2026-03-08T14:47:19.499Z vite:load [31m356.64ms[39m [fs] [2m/@vite/client[22m
+2026-03-08T14:47:19.515Z vite:resolve [32m0.19ms[39m [36m@vite/env[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/vite/dist/client/env.mjs[22m
+2026-03-08T14:47:19.516Z vite:import-analysis [32m1.31ms[39m [2m[1 imports rewritten] [2mnode_modules/vite/dist/client/client.mjs[22m[2m[22m
+2026-03-08T14:47:19.516Z vite:transform [33m16.26ms[39m [2m/@vite/client[22m
+2026-03-08T14:47:19.525Z vite:time [31m383.11ms[39m [2m/@vite/client[22m
+2026-03-08T14:47:19.529Z vite:cache [304] [2m/src/App.tsx[22m
+2026-03-08T14:47:19.529Z vite:time [32m0.20ms[39m [2m/src/App.tsx[22m
+2026-03-08T14:47:19.542Z vite:load [31m390.35ms[39m [plugin] [2m/node_modules/.vite/deps/chunk-BSNCPAQV.js?v=38a9cadf[22m
+2026-03-08T14:47:19.543Z vite:import-analysis [32m0.66ms[39m [2m[no imports] [2mnode_modules/.vite/deps/chunk-BSNCPAQV.js?v=38a9cadf[22m[2m[22m
+2026-03-08T14:47:19.543Z vite:transform [32m1.58ms[39m[2m [skipped] [2m/node_modules/.vite/deps/chunk-BSNCPAQV.js?v=38a9cadf[22m[2m[22m
+2026-03-08T14:47:19.724Z vite:hmr [self-accepts] [2msrc/index.css[22m
+2026-03-08T14:47:19.724Z vite:import-analysis [32m0.61ms[39m [2m[0 imports rewritten] [2msrc/index.css[22m[2m[22m
+2026-03-08T14:47:19.724Z vite:transform [31m571.96ms[39m [2m/src/index.css[22m
+2026-03-08T14:47:19.725Z vite:time [31m194.12ms[39m [2m/src/index.css[22m
+2026-03-08T14:47:19.728Z vite:load [31m237.28ms[39m [fs] [2m/src/store.ts[22m
+2026-03-08T14:47:19.731Z vite:load [31m239.97ms[39m [fs] [2m/src/components/dashboard/Dashboard.tsx[22m
+2026-03-08T14:47:19.755Z vite:load [31m263.81ms[39m [fs] [2m/src/components/settings/SettingsPage.tsx[22m
+2026-03-08T14:47:19.779Z vite:load [31m288.43ms[39m [fs] [2m/src/components/modals/SubscriptionModal.tsx[22m
+2026-03-08T14:47:19.787Z vite:load [31m271.60ms[39m [fs] [2m/node_modules/vite/dist/client/env.mjs[22m
+2026-03-08T14:47:19.788Z vite:import-analysis [32m0.05ms[39m [2m[no imports] [2mnode_modules/vite/dist/client/env.mjs[22m[2m[22m
+2026-03-08T14:47:19.788Z vite:transform [32m0.40ms[39m [2m/node_modules/vite/dist/client/env.mjs[22m
+2026-03-08T14:47:19.790Z vite:cache [304] [2m/node_modules/vite/dist/client/env.mjs[22m
+2026-03-08T14:47:19.790Z vite:time [32m0.34ms[39m [2m/node_modules/vite/dist/client/env.mjs[22m
+2026-03-08T14:47:19.848Z vite:resolve [33m29.06ms[39m [36mzustand[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/zustand.js?v=9f5a3321[22m
+2026-03-08T14:47:19.848Z vite:resolve [33m29.21ms[39m [36mzustand/middleware[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/zustand_middleware.js?v=2738d0b7[22m
+2026-03-08T14:47:19.848Z vite:resolve [33m29.24ms[39m [36muuid[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/uuid.js?v=5d7c6dec[22m
+2026-03-08T14:47:19.848Z vite:resolve [33m29.27ms[39m [36mdate-fns[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/date-fns.js?v=36673d35[22m
+2026-03-08T14:47:19.904Z vite:resolve [33m31.71ms[39m [36m../../store[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/store.ts[22m
+2026-03-08T14:47:19.904Z vite:resolve [33m31.88ms[39m [36m../../lib/i18n[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/lib/i18n.ts[22m
+2026-03-08T14:47:19.904Z vite:resolve [33m31.47ms[39m [36m../layout/Header[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/layout/Header.tsx[22m
+2026-03-08T14:47:19.905Z vite:resolve [33m31.48ms[39m [36m./SummaryPanel[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/dashboard/SummaryPanel.tsx[22m
+2026-03-08T14:47:19.905Z vite:resolve [33m31.51ms[39m [36m./CalendarView[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/dashboard/CalendarView.tsx[22m
+2026-03-08T14:47:19.905Z vite:resolve [33m31.54ms[39m [36m./TaskBottomSheet[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/dashboard/TaskBottomSheet.tsx[22m
+2026-03-08T14:47:19.905Z vite:resolve [33m31.56ms[39m [36m../modals/TaskModal[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/modals/TaskModal.tsx[22m
+2026-03-08T14:47:19.905Z vite:resolve [33m31.58ms[39m [36m../modals/SummaryDetailModal[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/modals/SummaryDetailModal.tsx[22m
+2026-03-08T14:47:19.905Z vite:resolve [33m32.25ms[39m [36mlucide-react[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/lucide-react.js?v=03d82e93[22m
+2026-03-08T14:47:19.905Z vite:cache [memory] [2m/@react-refresh[22m
+2026-03-08T14:47:19.906Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.906Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.907Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.907Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:19.907Z vite:cache [memory] [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:19.907Z vite:hmr [self-accepts] [2msrc/components/dashboard/Dashboard.tsx[22m
+2026-03-08T14:47:19.907Z vite:import-analysis [33m35.37ms[39m [2m[10 imports rewritten] [2msrc/components/dashboard/Dashboard.tsx[22m[2m[22m
+2026-03-08T14:47:19.910Z vite:transform [31m178.65ms[39m [2m/src/components/dashboard/Dashboard.tsx[22m
+2026-03-08T14:47:19.910Z vite:time [31m156.63ms[39m [2m/src/components/dashboard/Dashboard.tsx[22m
+2026-03-08T14:47:19.933Z vite:resolve [33m20.40ms[39m [36mjspdf[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/jspdf.js?v=810ebfee[22m
+2026-03-08T14:47:19.933Z vite:resolve [33m20.56ms[39m [36mjspdf-autotable[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/jspdf-autotable.js?v=d94e3db9[22m
+2026-03-08T14:47:19.933Z vite:cache [memory] [2m/@react-refresh[22m
+2026-03-08T14:47:19.934Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.934Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:19.934Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:19.934Z vite:cache [memory] [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:19.983Z vite:import-analysis [31m164.94ms[39m [2m[4 imports rewritten] [2msrc/store.ts[22m[2m[22m
+2026-03-08T14:47:19.984Z vite:transform [31m255.33ms[39m [2m/src/store.ts[22m
+2026-03-08T14:47:19.984Z vite:time [31m230.70ms[39m [2m/src/store.ts[22m
+2026-03-08T14:47:20.007Z vite:hmr [self-accepts] [2msrc/components/modals/SubscriptionModal.tsx[22m
+2026-03-08T14:47:20.007Z vite:import-analysis [31m135.66ms[39m [2m[5 imports rewritten] [2msrc/components/modals/SubscriptionModal.tsx[22m[2m[22m
+2026-03-08T14:47:20.009Z vite:transform [31m229.27ms[39m [2m/src/components/modals/SubscriptionModal.tsx[22m
+2026-03-08T14:47:20.009Z vite:time [31m254.78ms[39m [2m/src/components/modals/SubscriptionModal.tsx[22m
+2026-03-08T14:47:20.010Z vite:load [31m102.93ms[39m [fs] [2m/src/lib/i18n.ts[22m
+2026-03-08T14:47:20.011Z vite:load [31m103.35ms[39m [fs] [2m/src/components/dashboard/TaskBottomSheet.tsx[22m
+2026-03-08T14:47:20.029Z vite:load [31m122.02ms[39m [fs] [2m/src/components/dashboard/SummaryPanel.tsx[22m
+2026-03-08T14:47:20.041Z vite:load [31m133.77ms[39m [fs] [2m/src/components/dashboard/CalendarView.tsx[22m
+2026-03-08T14:47:20.052Z vite:load [31m144.93ms[39m [fs] [2m/src/components/layout/Header.tsx[22m
+2026-03-08T14:47:20.109Z vite:hmr [self-accepts] [2msrc/components/settings/SettingsPage.tsx[22m
+2026-03-08T14:47:20.110Z vite:import-analysis [31m197.46ms[39m [2m[9 imports rewritten] [2msrc/components/settings/SettingsPage.tsx[22m[2m[22m
+2026-03-08T14:47:20.111Z vite:transform [31m356.25ms[39m [2m/src/components/settings/SettingsPage.tsx[22m
+2026-03-08T14:47:20.112Z vite:time [31m358.05ms[39m [2m/src/components/settings/SettingsPage.tsx[22m
+2026-03-08T14:47:20.113Z vite:load [31m205.63ms[39m [fs] [2m/src/components/modals/SummaryDetailModal.tsx[22m
+2026-03-08T14:47:20.131Z vite:load [31m224.21ms[39m [fs] [2m/src/components/modals/TaskModal.tsx[22m
+2026-03-08T14:47:20.170Z vite:resolve [33m13.18ms[39m [36mreact[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/react/index.js[22m
+2026-03-08T14:47:20.170Z vite:resolve [33m13.30ms[39m [36mreact[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/react/index.js[22m
+2026-03-08T14:47:20.171Z vite:resolve [33m13.57ms[39m [36mreact[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/react/index.js[22m
+2026-03-08T14:47:20.171Z vite:resolve [33m13.61ms[39m [36mscheduler[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/scheduler/index.js[22m
+2026-03-08T14:47:20.186Z vite:resolve [33m14.23ms[39m [36m./TaskListItem[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/dashboard/TaskListItem.tsx[22m
+2026-03-08T14:47:20.186Z vite:resolve [33m14.50ms[39m [36mframer-motion[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/framer-motion.js?v=e15a2aad[22m
+2026-03-08T14:47:20.186Z vite:cache [memory] [2m/@react-refresh[22m
+2026-03-08T14:47:20.186Z vite:cache [memory] [2m/src/store.ts[22m
+2026-03-08T14:47:20.186Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.187Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:20.189Z vite:load [32m2.27ms[39m [fs] [2m/src/components/dashboard/TaskListItem.tsx[22m
+2026-03-08T14:47:20.204Z vite:resolve [32m1.02ms[39m [36mreact[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/react/index.js[22m
+2026-03-08T14:47:20.222Z vite:resolve [33m17.45ms[39m [36m../../lib/utils[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/lib/utils.ts[22m
+2026-03-08T14:47:20.223Z vite:cache [memory] [2m/@react-refresh[22m
+2026-03-08T14:47:20.223Z vite:cache [memory] [2m/src/store.ts[22m
+2026-03-08T14:47:20.223Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.223Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.224Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.224Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.224Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:20.224Z vite:hmr [self-accepts] [2msrc/components/dashboard/SummaryPanel.tsx[22m
+2026-03-08T14:47:20.224Z vite:hmr [self-accepts] [2msrc/components/layout/Header.tsx[22m
+2026-03-08T14:47:20.224Z vite:cache [memory] [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:20.224Z vite:hmr [self-accepts] [2msrc/components/dashboard/CalendarView.tsx[22m
+2026-03-08T14:47:20.224Z vite:import-analysis [33m19.56ms[39m [2m[7 imports rewritten] [2msrc/components/dashboard/SummaryPanel.tsx[22m[2m[22m
+2026-03-08T14:47:20.224Z vite:import-analysis [33m19.64ms[39m [2m[5 imports rewritten] [2msrc/components/layout/Header.tsx[22m[2m[22m
+2026-03-08T14:47:20.224Z vite:import-analysis [33m19.74ms[39m [2m[7 imports rewritten] [2msrc/components/dashboard/CalendarView.tsx[22m[2m[22m
+2026-03-08T14:47:20.226Z vite:transform [31m196.30ms[39m [2m/src/components/dashboard/SummaryPanel.tsx[22m
+2026-03-08T14:47:20.226Z vite:transform [31m173.50ms[39m [2m/src/components/layout/Header.tsx[22m
+2026-03-08T14:47:20.226Z vite:transform [31m184.55ms[39m [2m/src/components/dashboard/CalendarView.tsx[22m
+2026-03-08T14:47:20.227Z vite:time [31m250.14ms[39m [2m/src/components/dashboard/SummaryPanel.tsx[22m
+2026-03-08T14:47:20.227Z vite:time [31m251.06ms[39m [2m/src/components/layout/Header.tsx[22m
+2026-03-08T14:47:20.228Z vite:time [31m76.80ms[39m [2m/src/components/dashboard/CalendarView.tsx[22m
+2026-03-08T14:47:20.259Z vite:resolve [33m28.07ms[39m [36m../dashboard/TaskListItem[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/components/dashboard/TaskListItem.tsx[22m
+2026-03-08T14:47:20.259Z vite:resolve [33m28.12ms[39m [36m../store[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/src/store.ts[22m
+2026-03-08T14:47:20.259Z vite:cache [memory] [2m/@react-refresh[22m
+2026-03-08T14:47:20.259Z vite:cache [memory] [2m/src/store.ts[22m
+2026-03-08T14:47:20.259Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.260Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:20.260Z vite:hmr [self-accepts] [2msrc/components/modals/SummaryDetailModal.tsx[22m
+2026-03-08T14:47:20.260Z vite:import-analysis [33m29.51ms[39m [2m[1 imports rewritten] [2msrc/lib/i18n.ts[22m[2m[22m
+2026-03-08T14:47:20.260Z vite:import-analysis [33m29.58ms[39m [2m[6 imports rewritten] [2msrc/components/modals/SummaryDetailModal.tsx[22m[2m[22m
+2026-03-08T14:47:20.260Z vite:transform [31m249.71ms[39m [2m/src/lib/i18n.ts[22m
+2026-03-08T14:47:20.261Z vite:transform [31m147.66ms[39m [2m/src/components/modals/SummaryDetailModal.tsx[22m
+2026-03-08T14:47:20.293Z vite:resolve [33m30.29ms[39m [36mcanvas-confetti[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/canvas-confetti.js?v=620e75fe[22m
+2026-03-08T14:47:20.294Z vite:cache [memory] [2m/@react-refresh[22m
+2026-03-08T14:47:20.294Z vite:cache [memory] [2m/src/store.ts[22m
+2026-03-08T14:47:20.294Z vite:cache [memory] [2m/src/lib/i18n.ts[22m
+2026-03-08T14:47:20.294Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.294Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.294Z vite:import-analysis /node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.294Z vite:import-analysis /node_modules/.vite/deps/react.js?v=38a9cadf needs interop
+2026-03-08T14:47:20.295Z vite:cache [memory] [2m/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=38a9cadf[22m
+2026-03-08T14:47:20.295Z vite:cache [memory] [2m/node_modules/.vite/deps/react.js?v=38a9cadf[22m
+2026-03-08T14:47:20.295Z vite:hmr [self-accepts] [2msrc/components/modals/TaskModal.tsx[22m
+2026-03-08T14:47:20.295Z vite:import-analysis [33m33.20ms[39m [2m[7 imports rewritten] [2msrc/components/modals/TaskModal.tsx[22m[2m[22m
+2026-03-08T14:47:20.296Z vite:transform [31m164.00ms[39m [2m/src/components/modals/TaskModal.tsx[22m
+2026-03-08T14:47:20.296Z vite:time [31m109.00ms[39m [2m/src/components/modals/TaskModal.tsx[22m
+2026-03-08T14:47:20.298Z vite:hmr [self-accepts] [2msrc/components/dashboard/TaskBottomSheet.tsx[22m
+2026-03-08T14:47:20.299Z vite:import-analysis [31m127.45ms[39m [2m[8 imports rewritten] [2msrc/components/dashboard/TaskBottomSheet.tsx[22m[2m[22m
+2026-03-08T14:47:20.299Z vite:transform [31m288.19ms[39m [2m/src/components/dashboard/TaskBottomSheet.tsx[22m
+2026-03-08T14:47:20.299Z vite:time [31m147.39ms[39m [2m/src/components/dashboard/TaskBottomSheet.tsx[22m
+2026-03-08T14:47:20.300Z vite:cache [memory] [2m/src/components/modals/SummaryDetailModal.tsx[22m
+2026-03-08T14:47:20.300Z vite:time [32m0.35ms[39m [2m/src/components/modals/SummaryDetailModal.tsx[22m
+2026-03-08T14:47:20.304Z vite:resolve [32m3.08ms[39m [36mreact-dom[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/react-dom/index.js[22m
+2026-03-08T14:47:20.305Z vite:load [31m80.85ms[39m [fs] [2m/src/lib/utils.ts[22m
+2026-03-08T14:47:20.307Z vite:hmr [self-accepts] [2msrc/components/dashboard/TaskListItem.tsx[22m
+2026-03-08T14:47:20.307Z vite:import-analysis [33m45.58ms[39m [2m[9 imports rewritten] [2msrc/components/dashboard/TaskListItem.tsx[22m[2m[22m
+2026-03-08T14:47:20.308Z vite:transform [31m118.75ms[39m [2m/src/components/dashboard/TaskListItem.tsx[22m
+2026-03-08T14:47:20.323Z vite:resolve [33m13.46ms[39m [36mclsx[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/clsx.js?v=9929edcc[22m
+2026-03-08T14:47:20.323Z vite:resolve [33m13.66ms[39m [36mtailwind-merge[39m -> [2mD:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps/tailwind-merge.js?v=9cadb20e[22m
+2026-03-08T14:47:20.325Z vite:import-analysis [33m16.31ms[39m [2m[3 imports rewritten] [2msrc/lib/utils.ts[22m[2m[22m
+2026-03-08T14:47:20.325Z vite:transform [33m20.25ms[39m [2m/src/lib/utils.ts[22m
+2026-03-08T14:47:20.617Z vite:deps Dependencies bundled in 1152.06ms
+2026-03-08T14:47:20.618Z vite:deps [32mremoving cache dir D:/D드라이브 백업자료/개인파일/App 개발/PayTrail/node_modules/.vite/deps_temp_aac72ac6[39m

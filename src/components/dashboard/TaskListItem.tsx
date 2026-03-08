@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Task } from '../../types';
+import { Task, TaskStatus } from '../../types';
 import { useStore } from '../../store';
-import { cn, formatCurrency, PrivacyWrapper } from '../../lib/utils';
+import { cn, formatCurrency } from '../../lib/utils';
 import { motion, useAnimation, PanInfo } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Bell, Edit3, Trash2 } from 'lucide-react';
@@ -55,7 +55,7 @@ export function TaskListItem({ task, onEdit }: Props) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        let newStatus: import('../../types').TaskStatus = 'SCHEDULED';
+        let newStatus: TaskStatus = 'SCHEDULED';
         if (dueDateObj < today) {
             newStatus = 'OVERDUE';
         } else if (dueDateObj.getTime() === today.getTime()) {
@@ -141,10 +141,9 @@ export function TaskListItem({ task, onEdit }: Props) {
 
                     <div className="text-right">
                         <div className={cn("text-xl font-black",
-                            isOverdue ? "text-danger" : (isPaid ? "text-primary" : "text-slate-900"),
-                            userSettings.privacyMode && "blur-privacy"
+                            isOverdue ? "text-danger" : (isPaid ? "text-primary" : "text-slate-900")
                         )}>
-                            {PrivacyWrapper(formatCurrency(isPaid ? task.received_amount : remainingAmount, userSettings.currency), userSettings.privacyMode)}
+                            {formatCurrency(isPaid ? task.received_amount : remainingAmount, userSettings.currency)}
                         </div>
                         <div className="text-xs text-slate-500 font-medium">
                             {task.received_amount > 0 && !isPaid ? `${t('partial')}: ${formatCurrency(task.received_amount, userSettings.currency)}` : (isPaid ? t('paid') : t('remaining'))}

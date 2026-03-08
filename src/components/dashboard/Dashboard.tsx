@@ -4,7 +4,7 @@ import { SummaryPanel } from './SummaryPanel';
 import { CalendarView } from './CalendarView';
 import { TaskBottomSheet } from './TaskBottomSheet';
 import { TaskModal } from '../modals/TaskModal';
-import { SummaryDetailModal } from '../modals/SummaryDetailModal';
+import { ReceivedPage } from '../pages/ReceivedPage';
 import { useStore } from '../../store';
 
 interface Props {
@@ -18,7 +18,7 @@ export function Dashboard({ onOpenSettings }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalInitialDate, setModalInitialDate] = useState<Date | undefined>();
     const [editTaskId, setEditTaskId] = useState<string | undefined>();
-    const [selectedSummaryCategory, setSelectedSummaryCategory] = useState<'EXPECTED' | 'RECEIVED' | 'OVERDUE' | 'AGING' | null>(null);
+    const [isReceivedPageOpen, setIsReceivedPageOpen] = useState(false);
 
     const { tasks } = useStore();
 
@@ -30,7 +30,7 @@ export function Dashboard({ onOpenSettings }: Props) {
         setModalInitialDate(date);
         setEditTaskId(taskId);
         setIsModalOpen(true);
-        setSelectedDate(null); // close bottom sheet if open
+        setSelectedDate(null);
     };
 
     return (
@@ -50,7 +50,7 @@ export function Dashboard({ onOpenSettings }: Props) {
                     <div className="order-2">
                         <SummaryPanel
                             currentMonth={currentMonth}
-                            onSummaryClick={setSelectedSummaryCategory}
+                            onOpenReceived={() => setIsReceivedPageOpen(true)}
                         />
                     </div>
                 </main>
@@ -70,17 +70,18 @@ export function Dashboard({ onOpenSettings }: Props) {
                     />
                 )}
 
-                <SummaryDetailModal
-                    isOpen={selectedSummaryCategory !== null}
-                    onClose={() => setSelectedSummaryCategory(null)}
-                    category={selectedSummaryCategory}
-                    currentMonth={currentMonth}
-                    tasks={tasks}
-                    onEditTask={(taskId) => openTaskModal(undefined, taskId)}
-                />
+                {isReceivedPageOpen && (
+                    <ReceivedPage
+                        onClose={() => setIsReceivedPageOpen(false)}
+                        onEditTask={(taskId) => {
+                            setIsReceivedPageOpen(false);
+                            openTaskModal(undefined, taskId);
+                        }}
+                    />
+                )}
             </div>
 
-            {/* Floating Action Button for Main Screen */}
+            {/* Floating Action Button */}
             <button
                 onClick={() => openTaskModal()}
                 className="fixed bottom-6 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 flex items-center justify-center hover:bg-primary-hover haptic-active z-30"

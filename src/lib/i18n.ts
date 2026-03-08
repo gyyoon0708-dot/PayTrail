@@ -71,7 +71,6 @@ type TranslationKeys =
 
     // Modals
     | 'newTask'
-    | 'editTask'
     | 'clientCompany'
     | 'contactOptional'
     | 'amount'

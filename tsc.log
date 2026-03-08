@@ -1,0 +1,3 @@
+src/components/dashboard/TaskListItem.tsx(4,30): error TS2305: Module '"../../lib/utils"' has no exported member 'PrivacyWrapper'.
+src/components/dashboard/TaskListItem.tsx(145,42): error TS2339: Property 'privacyMode' does not exist on type 'UserSettings'.
+src/components/dashboard/TaskListItem.tsx(147,146): error TS2339: Property 'privacyMode' does not exist on type 'UserSettings'.
