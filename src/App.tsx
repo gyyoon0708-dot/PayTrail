@@ -23,14 +23,7 @@ function App() {
 
     return (
         <div className="relative font-sans text-slate-100 selection:bg-primary selection:text-white">
-            {/* Global Setting Button Intercept on Top Right */}
-            <div className="fixed top-6 right-4 z-40 max-w-md mx-auto inset-x-0 w-full flex justify-end px-4 pointer-events-none">
-                <button onClick={toggleSettings} className="pointer-events-auto p-2.5 rounded-full bg-slate-800 text-slate-300 hover:text-white transition-colors haptic-active shadow-lg">
-                    <SettingsIcon size={20} />
-                </button>
-            </div>
-
-            <Dashboard />
+            <Dashboard onOpenSettings={toggleSettings} />
 
             {isSettingsOpen && (
                 <SettingsPage

@@ -5,7 +5,11 @@ import { CalendarView } from './CalendarView';
 import { TaskBottomSheet } from './TaskBottomSheet';
 import { TaskModal } from '../modals/TaskModal';
 
-export function Dashboard() {
+interface Props {
+    onOpenSettings: () => void;
+}
+
+export function Dashboard({ onOpenSettings }: Props) {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -27,16 +31,20 @@ export function Dashboard() {
     return (
         <div className="min-h-screen bg-slate-50 pb-20">
             <div className="max-w-md mx-auto px-4">
-                <Header />
+                <Header onOpenSettings={onOpenSettings} />
 
-                <main className="mt-2 space-y-4">
-                    <SummaryPanel currentMonth={currentMonth} />
-                    <CalendarView
-                        currentMonth={currentMonth}
-                        onMonthChange={setCurrentMonth}
-                        selectedDate={selectedDate}
-                        onSelectDate={handleSelectDate}
-                    />
+                <main className="mt-2 space-y-4 flex flex-col">
+                    <div className="order-1">
+                        <CalendarView
+                            currentMonth={currentMonth}
+                            onMonthChange={setCurrentMonth}
+                            selectedDate={selectedDate}
+                            onSelectDate={handleSelectDate}
+                        />
+                    </div>
+                    <div className="order-2">
+                        <SummaryPanel currentMonth={currentMonth} />
+                    </div>
                 </main>
 
                 <TaskBottomSheet

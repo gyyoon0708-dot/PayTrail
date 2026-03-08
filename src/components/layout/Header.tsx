@@ -1,14 +1,16 @@
-import { Volume2, VolumeX, Eye, EyeOff, Settings } from 'lucide-react';
+import { Eye, EyeOff, Settings } from 'lucide-react';
 import { useStore } from '../../store';
 import { cn } from '../../lib/utils';
-import { differenceInDays, endOfMonth, startOfMonth } from 'date-fns';
 import { useTranslation } from '../../lib/i18n';
 
-export function Header() {
+interface Props {
+    onOpenSettings: () => void;
+}
+
+export function Header({ onOpenSettings }: Props) {
     const { userSettings, updateSettings, subscription } = useStore();
     const { t } = useTranslation();
 
-    const toggleAudio = () => updateSettings({ audioEnabled: !userSettings.audioEnabled });
     const togglePrivacy = () => updateSettings({ privacyMode: !userSettings.privacyMode });
 
     return (
@@ -28,12 +30,6 @@ export function Header() {
 
             <div className="flex items-center gap-3">
                 <button
-                    onClick={toggleAudio}
-                    className="p-2.5 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-primary transition-colors haptic-active shadow-sm"
-                >
-                    {userSettings.audioEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
-                </button>
-                <button
                     onClick={togglePrivacy}
                     className={cn(
                         "p-2.5 rounded-full border transition-colors haptic-active shadow-sm flex items-center gap-1.5",
@@ -43,6 +39,12 @@ export function Header() {
                     )}
                 >
                     {userSettings.privacyMode ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+                <button
+                    onClick={onOpenSettings}
+                    className="p-2.5 rounded-full bg-slate-800 text-slate-300 hover:text-white transition-colors haptic-active shadow-sm"
+                >
+                    <Settings size={20} />
                 </button>
             </div>
         </header>
