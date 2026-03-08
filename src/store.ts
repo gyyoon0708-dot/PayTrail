@@ -71,7 +71,7 @@ export const useStore = create<StoreState & StoreActions>()(
             userSettings: {
                 currency: 'KRW',
                 audioEnabled: true,
-                privacyMode: false,
+
                 language: 'ko',
             },
             draftTask: null,

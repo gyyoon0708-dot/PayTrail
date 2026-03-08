@@ -4,6 +4,8 @@ import { SummaryPanel } from './SummaryPanel';
 import { CalendarView } from './CalendarView';
 import { TaskBottomSheet } from './TaskBottomSheet';
 import { TaskModal } from '../modals/TaskModal';
+import { SummaryDetailModal } from '../modals/SummaryDetailModal';
+import { useStore } from '../../store';
 
 interface Props {
     onOpenSettings: () => void;
@@ -16,6 +18,9 @@ export function Dashboard({ onOpenSettings }: Props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalInitialDate, setModalInitialDate] = useState<Date | undefined>();
     const [editTaskId, setEditTaskId] = useState<string | undefined>();
+    const [selectedSummaryCategory, setSelectedSummaryCategory] = useState<'EXPECTED' | 'RECEIVED' | 'OVERDUE' | 'AGING' | null>(null);
+
+    const { tasks } = useStore();
 
     const handleSelectDate = (date: Date) => {
         setSelectedDate(date);
@@ -43,7 +48,10 @@ export function Dashboard({ onOpenSettings }: Props) {
                         />
                     </div>
                     <div className="order-2">
-                        <SummaryPanel currentMonth={currentMonth} />
+                        <SummaryPanel
+                            currentMonth={currentMonth}
+                            onSummaryClick={setSelectedSummaryCategory}
+                        />
                     </div>
                 </main>
 
@@ -61,6 +69,15 @@ export function Dashboard({ onOpenSettings }: Props) {
                         editTaskId={editTaskId}
                     />
                 )}
+
+                <SummaryDetailModal
+                    isOpen={selectedSummaryCategory !== null}
+                    onClose={() => setSelectedSummaryCategory(null)}
+                    category={selectedSummaryCategory}
+                    currentMonth={currentMonth}
+                    tasks={tasks}
+                    onEditTask={(taskId) => openTaskModal(undefined, taskId)}
+                />
             </div>
 
             {/* Floating Action Button for Main Screen */}

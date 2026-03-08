@@ -59,14 +59,6 @@ export const formatCurrency = (amount: number, currency: CurrencyLocale): string
     }).format(roundedAmount);
 };
 
-export const PrivacyWrapper = (
-    value: string,
-    isPrivacyMode: boolean
-) => {
-    if (!isPrivacyMode) return value;
-    // Regex to replace all digits with asterisks, keeping symbols and commas
-    return value.replace(/\d/g, '*');
-};
 
 /**
  * Compute the specific client delay stats

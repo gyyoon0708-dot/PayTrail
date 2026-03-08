@@ -26,7 +26,7 @@ export interface Task {
 export interface UserSettings {
     currency: CurrencyLocale;
     audioEnabled: boolean;
-    privacyMode: boolean;
+
     language: AppLanguage;
 }
 

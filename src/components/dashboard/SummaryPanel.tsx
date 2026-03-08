@@ -1,10 +1,15 @@
 import { useStore } from '../../store';
-import { formatCurrency, PrivacyWrapper } from '../../lib/utils';
+import { formatCurrency } from '../../lib/utils';
 import { useTranslation } from '../../lib/i18n';
 import { Wallet, AlertCircle, Hourglass, Activity } from 'lucide-react';
 import { differenceInDays } from 'date-fns';
 
-export function SummaryPanel({ currentMonth }: { currentMonth: Date }) {
+interface Props {
+    currentMonth: Date;
+    onSummaryClick: (category: 'EXPECTED' | 'RECEIVED' | 'OVERDUE' | 'AGING') => void;
+}
+
+export function SummaryPanel({ currentMonth, onSummaryClick }: Props) {
     const { tasks, userSettings } = useStore();
     const { t } = useTranslation();
 
@@ -50,27 +55,36 @@ export function SummaryPanel({ currentMonth }: { currentMonth: Date }) {
 
     return (
         <div className="grid grid-cols-2 gap-3 mb-6">
-            <div className="glass-card p-4 col-span-2 sm:col-span-1 bg-gradient-to-br from-white to-slate-50">
+            <div
+                className="glass-card p-4 col-span-2 sm:col-span-1 bg-gradient-to-br from-white to-slate-50 cursor-pointer hover:bg-slate-50 transition-colors haptic-active"
+                onClick={() => onSummaryClick('EXPECTED')}
+            >
                 <div className="flex items-center gap-2 text-slate-500 mb-1">
                     <Wallet size={16} />
                     <span className="text-sm font-medium">{t('expectedGross')}</span>
                 </div>
-                <div className={`text-3xl font-bold text-slate-800 tracking-tight ${userSettings.privacyMode ? 'blur-privacy' : ''}`}>
-                    {PrivacyWrapper(formatCurrency(expected, userSettings.currency), userSettings.privacyMode)}
+                <div className="text-3xl font-bold text-slate-800 tracking-tight">
+                    {formatCurrency(expected, userSettings.currency)}
                 </div>
             </div>
 
-            <div className="glass-card p-4 col-span-2 sm:col-span-1 border-primary/20 bg-gradient-to-br from-primary/5 to-white shadow-primary/5">
+            <div
+                className="glass-card p-4 col-span-2 sm:col-span-1 border-primary/20 bg-gradient-to-br from-primary/5 to-white shadow-primary/5 cursor-pointer hover:bg-primary/5 transition-colors haptic-active"
+                onClick={() => onSummaryClick('RECEIVED')}
+            >
                 <div className="flex items-center gap-2 text-primary mb-1">
                     <Activity size={16} />
                     <span className="text-sm font-medium">{t('received')}</span>
                 </div>
-                <div className={`text-3xl font-bold text-primary tracking-tight ${userSettings.privacyMode ? 'blur-privacy' : ''}`}>
-                    {PrivacyWrapper(formatCurrency(received, userSettings.currency), userSettings.privacyMode)}
+                <div className="text-3xl font-bold text-primary tracking-tight">
+                    {formatCurrency(received, userSettings.currency)}
                 </div>
             </div>
 
-            <div className="glass-card p-3 border-danger/20 bg-danger/5">
+            <div
+                className="glass-card p-3 border-danger/20 bg-danger/5 cursor-pointer hover:bg-danger/10 transition-colors haptic-active"
+                onClick={() => onSummaryClick('OVERDUE')}
+            >
                 <div className="flex items-center gap-2 text-danger mb-1">
                     <AlertCircle size={14} />
                     <span className="text-xs font-medium">{t('overdue')}</span>
@@ -80,7 +94,10 @@ export function SummaryPanel({ currentMonth }: { currentMonth: Date }) {
                 </div>
             </div>
 
-            <div className="glass-card p-3 border-amber-500/20 bg-amber-500/5">
+            <div
+                className="glass-card p-3 border-amber-500/20 bg-amber-500/5 cursor-pointer hover:bg-amber-500/10 transition-colors haptic-active"
+                onClick={() => onSummaryClick('AGING')}
+            >
                 <div className="flex items-center gap-2 text-amber-500 mb-1">
                     <Hourglass size={14} />
                     <span className="text-xs font-medium">{t('aging30Days')}</span>

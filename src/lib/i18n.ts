@@ -104,6 +104,8 @@ type TranslationKeys =
     | 'edit'
     | 'delete'
     | 'editTask'
+    | 'tasks'
+    | 'noTasks'
     ;
 
 const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
@@ -171,7 +173,6 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         quickPay: '빠른 정산',
 
         newTask: '새 일정 추가',
-        editTask: '일정 수정',
         clientCompany: '클라이언트 (회사명) *',
         contactOptional: '담당자 이름 (선택)',
         amount: '금액 *',
@@ -202,6 +203,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         undoPayment: '완료 취소 (되돌리기)',
         edit: '수정',
         delete: '삭제',
+        tasks: '건',
+        noTasks: '해당되는 일정이 없습니다.',
     },
     en: {
         appSubtitle: 'Trace every penny',
@@ -267,7 +270,6 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         quickPay: 'Quick Pay',
 
         newTask: 'New Task',
-        editTask: 'Edit Task',
         clientCompany: 'Client / Company *',
         contactOptional: 'Contact Name (Optional)',
         amount: 'Amount *',
@@ -298,6 +300,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         undoPayment: 'Undo Payment',
         edit: 'Edit',
         delete: 'Delete',
+        tasks: 'tasks',
+        noTasks: 'No tasks found.',
     },
     ja: {
         appSubtitle: 'すべての報酬を一目で',
@@ -363,7 +367,6 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         quickPay: '即時完了',
 
         newTask: '新しいタスク',
-        editTask: 'タスクの編集',
         clientCompany: 'クライアント / 会社名 *',
         contactOptional: '担当者名（任意）',
         amount: '金額 *',
@@ -394,6 +397,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         undoPayment: '完了取消 (元に戻す)',
         edit: '編集',
         delete: '削除',
+        tasks: '件',
+        noTasks: '該当するスケジュールはありません。',
     },
     es: {
         appSubtitle: 'Rastrea cada centavo',
@@ -459,7 +464,6 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         quickPay: 'Pago Rápido',
 
         newTask: 'Nueva Tarea',
-        editTask: 'Editar Tarea',
         clientCompany: 'Cliente / Empresa *',
         contactOptional: 'Nombre del Contacto',
         amount: 'Monto *',
@@ -490,6 +494,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         undoPayment: 'Deshacer Pago',
         edit: 'Editar',
         delete: 'Eliminar',
+        tasks: 'tareas',
+        noTasks: 'No hay tareas.',
     }
 };
 
