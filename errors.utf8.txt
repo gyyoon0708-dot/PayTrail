@@ -1,0 +1,22 @@
+﻿src/App.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/dashboard/Dashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/dashboard/TaskBottomSheet.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/dashboard/TaskListItem.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/dashboard/TaskListItem.tsx(1,17): error TS6133: 'useRef' is declared but its value is never read.
+src/components/dashboard/TaskListItem.tsx(7,16): error TS6133: 'Edit3' is declared but its value is never read.
+src/components/dashboard/TaskListItem.tsx(7,23): error TS6133: 'Trash2' is declared but its value is never read.
+src/components/dashboard/TaskListItem.tsx(16,12): error TS6133: 'isSwiping' is declared but its value is never read.
+src/components/dashboard/TaskListItem.tsx(49,24): error TS6133: 'event' is declared but its value is never read.
+src/components/layout/Header.tsx(4,1): error TS6192: All imports in import declaration are unused.
+src/components/modals/SubscriptionModal.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/modals/SubscriptionModal.tsx(3,10): error TS6133: 'Check' is declared but its value is never read.
+src/components/modals/SubscriptionModal.tsx(10,13): error TS6133: 'subscription' is declared but its value is never read.
+src/components/modals/TaskModal.tsx(4,10): error TS6133: 'Task' is declared but its value is never read.
+src/components/settings/SettingsPage.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/lib/utils.ts(3,10): error TS6133: 'format' is declared but its value is never read.
+src/store.ts(4,31): error TS6133: 'startOfMonth' is declared but its value is never read.
+src/store.ts(4,57): error TS6133: 'isAfter' is declared but its value is never read.
+src/store.ts(4,66): error TS6133: 'isSameDay' is declared but its value is never read.
+src/store.ts(5,28): error TS6133: 'RecurringType' is declared but its value is never read.
+src/store.ts(154,72): error TS2304: Cannot find name 'TaskStatus'.
+src/store.ts(159,72): error TS2304: Cannot find name 'TaskStatus'.
