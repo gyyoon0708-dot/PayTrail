@@ -88,8 +88,8 @@ export function SummaryDetailModal({ isOpen, onClose, category, currentMonth, ta
                             <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <span className="text-2xl">📋</span>
                             </div>
-                            <h3 className="text-slate-900 font-medium mb-1">{t('noTasks')}</h3>
-                            <p className="text-slate-500 text-sm">해당되는 일정이 없습니다.</p>
+                            <h3 className="text-slate-900 font-medium mb-1">{t('emptySummaryTasks')}</h3>
+                            <p className="text-slate-500 text-sm">{t('emptySummaryTasks')}</p>
                         </div>
                     ) : (
                         filteredTasks.map(task => (
