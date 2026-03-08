@@ -13,7 +13,7 @@ export interface Task {
     received_amount: number; // For partial payments
     tax_deducted: number; // Typically 3.3%
     status: TaskStatus;
-    due_date: string; // ISO date string (YYYY-MM-DD)
+    due_date: string; // ISO date string (YYYY-MM-DD), defaults to work_date_end or today
     work_date_start?: string; // Optional start date of work
     work_date_end?: string; // Optional end date of work
     paid_date?: string; // ISO date string when finally paid
