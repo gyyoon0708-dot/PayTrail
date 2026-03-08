@@ -394,7 +394,6 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         undoPayment: '完了取消 (元に戻す)',
         edit: '編集',
         delete: '削除',
-        editTask: 'スケジュール/精算の編集',
     },
     es: {
         appSubtitle: 'Rastrea cada centavo',
@@ -491,7 +490,6 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
         undoPayment: 'Deshacer Pago',
         edit: 'Editar',
         delete: 'Eliminar',
-        editTask: 'Editar Tarea / Pago',
     }
 };
 
