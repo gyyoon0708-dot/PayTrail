@@ -56,6 +56,8 @@ type TranslationKeys =
     // TaskBottom / ListItem
     | 'noTasks'
     | 'noTasksScheduled'
+    | 'noTasksForDate'
+    | 'addTask'
     | 'addTaskForDate'
     | 'remind'
     | 'remindTemplate'
@@ -158,6 +160,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
 
         noTasks: '이 날짜에는 등록된 일정이 없습니다.',
         noTasksScheduled: '이 날짜에는 등록된 일정이 없습니다.',
+        noTasksForDate: '이 날짜에 등록된 일정이 없습니다.',
+        addTask: '일정 추가',
         addTaskForDate: '이 날짜에 일정 추가',
         remind: '리마인드 송신',
         remindTemplate: '안녕하세요, 정산 대금이 지연되어 리마인드 연락 드립니다. 확인 부탁드리겠습니다.',
@@ -256,6 +260,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
 
         noTasks: 'No tasks found for this date.',
         noTasksScheduled: 'No tasks scheduled for this day.',
+        noTasksForDate: 'No tasks for this date.',
+        addTask: 'Add Task',
         addTaskForDate: 'Add Task for Date',
         remind: 'Remind',
         remindTemplate: 'Hello, this is a gentle reminder regarding the overdue payment. Please review at your earliest convenience.',
@@ -354,6 +360,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
 
         noTasks: 'この日付のタスクはありません。',
         noTasksScheduled: 'この日付のスケジュールはありません。',
+        noTasksForDate: 'この日付のタスクはありません。',
+        addTask: 'タスクを追加',
         addTaskForDate: 'この日付にタスクを追加',
         remind: 'リマインド',
         remindTemplate: 'お世話になっております。お支払いが遅れているようですので、ご確認をお願いいたします。',
@@ -452,6 +460,8 @@ const translations: Record<AppLanguage, Record<TranslationKeys, string>> = {
 
         noTasks: 'No hay tareas para esta fecha.',
         noTasksScheduled: 'No hay tareas programadas para este día.',
+        noTasksForDate: 'No hay tareas para esta fecha.',
+        addTask: 'Agregar tarea',
         addTaskForDate: 'Agregar tarea para esta fecha',
         remind: 'Recordar',
         remindTemplate: 'Hola, este es un recordatorio amable sobre el pago atrasado. Por favor revíselo cuando pueda.',

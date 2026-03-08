@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Task, TaskStatus } from '../../types';
 import { useStore } from '../../store';
 import { cn, formatCurrency } from '../../lib/utils';
 import { motion, useAnimation, PanInfo } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Bell, Edit3, Trash2 } from 'lucide-react';
+import { Bell, Edit3, Trash2, ChevronRight } from 'lucide-react';
 import { useTranslation } from '../../lib/i18n';
 
 interface Props {
@@ -12,196 +12,179 @@ interface Props {
     onEdit?: () => void;
 }
 
+const STATUS_CONFIG = {
+    PAID: { dot: '#10D9A0', leftBorder: '#10D9A0', badge: 'badge-paid', label: '완료', bg: 'rgba(16,217,160,0.04)' },
+    OVERDUE: { dot: '#FF6B6B', leftBorder: '#FF6B6B', badge: 'badge-overdue', label: '연체', bg: 'rgba(255,107,107,0.04)' },
+    WAITING: { dot: '#F5C542', leftBorder: '#F5C542', badge: 'badge-waiting', label: '대기', bg: 'rgba(245,197,66,0.03)' },
+    SCHEDULED: { dot: '#38BDF8', leftBorder: 'rgba(255,255,255,0.12)', badge: 'badge-scheduled', label: '예정', bg: 'transparent' },
+};
+
 export function TaskListItem({ task, onEdit }: Props) {
     const { userSettings, updateTask, deleteTask, subscription } = useStore();
     const { t } = useTranslation();
     const controls = useAnimation();
     const [isSwiping, setIsSwiping] = useState(false);
 
-    const isOverdue = task.status === 'OVERDUE';
+    const status = STATUS_CONFIG[task.status] || STATUS_CONFIG.SCHEDULED;
     const isPaid = task.status === 'PAID';
-    const remainingAmount = task.amount - task.tax_deducted - task.received_amount;
+    const isOverdue = task.status === 'OVERDUE';
+    const net = task.amount - task.tax_deducted;
+    const remaining = net - task.received_amount;
 
     const handlePay = () => {
         if (isPaid) return;
-
-        // Play sound if enabled
         if (userSettings.audioEnabled) {
-            // Basic beep fallback inside browser rules, or standard Audio object
-            // In real scenario you would load an mp3 for 'Ka-ching'
             const audio = new Audio('/kaching.mp3');
-            audio.play().catch(e => console.log('Audio play inhibited by browser until interaction:', e));
+            audio.play().catch(() => { });
         }
-
-        // Trigger Confetti
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#3B82F6', '#10B981', '#FCD34D']
-        });
-
-        // Update state to FULL payment for simplicity on quick swipe
-        updateTask(task.id, {
-            status: 'PAID',
-            received_amount: task.amount - task.tax_deducted,
-            paid_date: new Date().toISOString()
-        });
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#10D9A0', '#0BB882', '#F5C542'] });
+        updateTask(task.id, { status: 'PAID', received_amount: net, paid_date: new Date().toISOString() });
     };
 
     const handleUndoPay = () => {
         const dueDateObj = new Date(task.due_date);
         dueDateObj.setHours(0, 0, 0, 0);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
+        const today = new Date(); today.setHours(0, 0, 0, 0);
         let newStatus: TaskStatus = 'SCHEDULED';
-        if (dueDateObj < today) {
-            newStatus = 'OVERDUE';
-        } else if (dueDateObj.getTime() === today.getTime()) {
-            newStatus = 'WAITING';
-        }
-
-        updateTask(task.id, {
-            status: newStatus,
-            received_amount: 0,
-        });
+        if (dueDateObj < today) newStatus = 'OVERDUE';
+        else if (dueDateObj.getTime() === today.getTime()) newStatus = 'WAITING';
+        updateTask(task.id, { status: newStatus, received_amount: 0 });
     };
 
-    const onDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const onDragEnd = (_: any, info: PanInfo) => {
         setIsSwiping(false);
-        if (!isPaid && info.offset.x > 100) {
-            handlePay();
-        }
-        controls.start({ x: 0, transition: { type: "spring", stiffness: 300, damping: 20 } });
+        if (!isPaid && info.offset.x > 100) handlePay();
+        controls.start({ x: 0, transition: { type: 'spring', stiffness: 300, damping: 20 } });
     };
 
-    const handleRemindClick = () => {
-        let remindText = '';
-        if (subscription === 'PRO') {
-            // Pro template
-            remindText = t('proRemindTemplate')
-                .replace('{company}', task.company)
-                .replace('{dueDate}', task.due_date);
-        } else {
-            // Free template
-            remindText = t('freeRemindTemplate')
-                .replace('{company}', task.company);
-        }
-
-        remindText += `\n\n${t('systemGeneratedMessage')}`;
-
-        navigator.clipboard.writeText(remindText).then(() => {
-            alert(t('remindMessageCopied'));
-        });
+    const handleRemind = () => {
+        const template = subscription === 'PRO'
+            ? t('proRemindTemplate').replace('{company}', task.company).replace('{dueDate}', task.due_date)
+            : t('freeRemindTemplate').replace('{company}', task.company);
+        navigator.clipboard.writeText(template + `\n\n${t('systemGeneratedMessage')}`)
+            .then(() => alert(t('remindMessageCopied')));
     };
 
     return (
-        <div className="relative rounded-2xl overflow-hidden bg-success mb-2">
-            {/* Background layer for Swipe action */}
-            <div className="absolute inset-0 flex items-center px-6 bg-primary text-white font-bold opacity-90">
-                <span className="text-lg">{t('markAsPaid')}</span>
-            </div>
+        <div className="relative rounded-[18px] overflow-hidden mb-3 animate-fade-in">
+            {/* Swipe background */}
+            {!isPaid && (
+                <div className="absolute inset-0 flex items-center px-6 rounded-[18px]"
+                    style={{ background: 'linear-gradient(135deg, #10D9A0 0%, #0BB882 100%)' }}>
+                    <div className="flex items-center gap-2 text-bg-primary font-bold text-sm">
+                        <span className="text-xl">✓</span>
+                        <span>{t('markAsPaid')}</span>
+                    </div>
+                </div>
+            )}
 
-            {/* Foreground Draggable Card */}
             <motion.div
-                drag="x"
+                drag={isPaid ? false : 'x'}
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={{ left: 0, right: 0.5 }}
+                dragElastic={{ left: 0, right: 0.4 }}
                 onDragStart={() => setIsSwiping(true)}
                 onDragEnd={onDragEnd}
                 animate={controls}
-                className={cn(
-                    "relative bg-white border border-slate-200 border-l-4 rounded-2xl p-4 shadow-sm",
-                    isOverdue ? "border-danger animate-pulse-soft bg-danger/5 border-l-danger" : "",
-                    task.status === 'WAITING' ? "border-warning border-l-warning" : "",
-                    isPaid ? "border-primary opacity-60 border-l-primary" : "",
-                    task.status === 'SCHEDULED' ? "border-slate-300 border-l-slate-400" : ""
-                )}
+                className="relative rounded-[18px] overflow-hidden"
+                style={{
+                    background: `linear-gradient(145deg, rgba(26,34,53,0.95) 0%, rgba(15,22,42,0.98) 100%)`,
+                    border: '1px solid rgba(255,255,255,0.07)',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.05) inset',
+                }}
             >
-                <div className="flex justify-between items-start">
-                    <div>
-                        <h4 className={cn("font-bold text-lg", isPaid ? "line-through text-slate-400" : "text-slate-900")}>
-                            {task.company}
-                        </h4>
-                        <div className="flex flex-col gap-0.5 mt-1">
-                            <p className="text-xs text-slate-500 font-medium">{t('dueDate')}: {task.due_date}</p>
+                {/* Left status stripe */}
+                <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-[18px]"
+                    style={{ background: status.leftBorder }} />
+
+                <div className="pl-4 pr-4 py-4">
+                    <div className="flex items-start justify-between gap-3">
+                        {/* Left: info */}
+                        <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                                <h4 className={cn(
+                                    'font-bold text-base leading-tight truncate',
+                                    isPaid ? 'text-text-muted line-through' : 'text-text-primary'
+                                )}>
+                                    {task.company}
+                                </h4>
+                                <span className={cn('badge shrink-0', status.badge)}>{status.label}</span>
+                            </div>
+
                             {task.work_date_start && (
-                                <div className="text-xs text-blue-600 flex items-center gap-1 font-medium mt-0.5">
-                                    <span className="px-1.5 py-0.5 bg-blue-100 rounded text-blue-700">{t('workDate')}</span>
-                                    {task.work_date_start}
+                                <p className="text-xs text-text-muted mt-0.5">
+                                    작업일: {task.work_date_start}
                                     {task.work_date_end && task.work_date_end !== task.work_date_start && ` ~ ${task.work_date_end}`}
-                                </div>
+                                </p>
+                            )}
+                            {task.memo && (
+                                <p className="text-xs mt-1 line-clamp-1 italic" style={{ color: '#4B5F80' }}>{task.memo}</p>
                             )}
                         </div>
-                        {task.memo && (
-                            <p className="text-xs text-slate-400 mt-1 line-clamp-1 italic">{task.memo}</p>
-                        )}
+
+                        {/* Right: amount */}
+                        <div className="text-right shrink-0">
+                            <p className={cn(
+                                'text-xl font-black amount-display leading-tight',
+                                isOverdue ? 'text-danger' : isPaid ? 'text-primary-400' : 'text-text-primary'
+                            )}>
+                                {formatCurrency(isPaid ? (task.received_amount || net) : remaining, userSettings.currency)}
+                            </p>
+                            {task.received_amount > 0 && !isPaid && (
+                                <p className="text-xs mt-0.5" style={{ color: '#F5C542' }}>
+                                    부분: {formatCurrency(task.received_amount, userSettings.currency)}
+                                </p>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="text-right">
-                        <div className={cn("text-xl font-black",
-                            isOverdue ? "text-danger" : (isPaid ? "text-primary" : "text-slate-900")
-                        )}>
-                            {formatCurrency(isPaid ? task.received_amount : remainingAmount, userSettings.currency)}
-                        </div>
-                        <div className="text-xs text-slate-500 font-medium">
-                            {task.received_amount > 0 && !isPaid ? `${t('partial')}: ${formatCurrency(task.received_amount, userSettings.currency)}` : (isPaid ? t('paid') : t('remaining'))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Actions */}
-                <div className="mt-4 flex gap-2">
-                    {!isPaid && (
-                        <button
-                            onClick={handlePay}
-                            className="flex-1 py-1.5 bg-slate-100 hover:bg-primary/10 hover:text-primary text-slate-600 text-xs font-bold rounded-lg transition-colors border border-slate-200 hover:border-primary/30"
-                        >
-                            {t('quickPay')}
-                        </button>
-                    )}
-
-                    {isOverdue && !isPaid && (
-                        <button
-                            onClick={handleRemindClick}
-                            className="flex items-center justify-center gap-1 flex-1 py-1.5 bg-danger/10 text-danger hover:bg-danger hover:text-white text-xs font-bold rounded-lg transition-colors border border-danger/20"
-                        >
-                            <Bell size={14} />
-                            {t('remind')}
-                        </button>
-                    )}
-
-                    {isPaid && (
-                        <button
-                            onClick={handleUndoPay}
-                            className="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 text-xs font-bold rounded-lg transition-colors border border-slate-200 shadow-sm"
-                        >
-                            {t('undoPayment')}
-                        </button>
-                    )}
-
-                    <div className="flex gap-1 ml-auto">
-                        {onEdit && (
+                    {/* Actions row */}
+                    <div className="flex items-center gap-2 mt-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                        {!isPaid && (
                             <button
-                                onClick={onEdit}
-                                className="p-1.5 text-slate-400 hover:text-primary bg-slate-50 hover:bg-primary/10 rounded-lg transition-colors border border-slate-200"
-                                title={t('edit')}
+                                onClick={handlePay}
+                                className="btn-primary flex-1 py-2 text-xs font-bold"
                             >
-                                <Edit3 size={16} />
+                                {t('quickPay')}
                             </button>
                         )}
-                        <button
-                            onClick={() => {
-                                if (window.confirm(t('delete') + '?')) {
-                                    deleteTask(task.id);
-                                }
-                            }}
-                            className="p-1.5 text-slate-400 hover:text-danger bg-slate-50 hover:bg-danger/10 rounded-lg transition-colors border border-slate-200"
-                            title={t('delete')}
-                        >
-                            <Trash2 size={16} />
-                        </button>
+
+                        {isOverdue && !isPaid && (
+                            <button
+                                onClick={handleRemind}
+                                className="btn-danger flex items-center gap-1 px-3 py-2 text-xs"
+                            >
+                                <Bell size={12} />
+                                {t('remind')}
+                            </button>
+                        )}
+
+                        {isPaid && (
+                            <button
+                                onClick={handleUndoPay}
+                                className="btn-secondary flex-1 py-2 text-xs"
+                            >
+                                {t('undoPayment')}
+                            </button>
+                        )}
+
+                        <div className="flex gap-1.5 ml-auto">
+                            {onEdit && (
+                                <button
+                                    onClick={onEdit}
+                                    className="w-8 h-8 rounded-xl flex items-center justify-center transition-all haptic-active"
+                                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+                                >
+                                    <Edit3 size={13} className="text-text-secondary" />
+                                </button>
+                            )}
+                            <button
+                                onClick={() => { if (window.confirm('삭제할까요?')) deleteTask(task.id); }}
+                                className="w-8 h-8 rounded-xl flex items-center justify-center transition-all haptic-active"
+                                style={{ background: 'rgba(255,107,107,0.08)', border: '1px solid rgba(255,107,107,0.15)' }}
+                            >
+                                <Trash2 size={13} style={{ color: '#FF8080' }} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </motion.div>

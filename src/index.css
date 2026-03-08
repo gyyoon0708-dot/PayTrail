@@ -2,38 +2,297 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   GLOBAL BASE
+   ============================================ */
+
 @layer base {
+  :root {
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply bg-slate-50 text-slate-900 antialiased selection:bg-primary selection:text-white;
+    @apply bg-bg-primary text-text-primary;
+    font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg-gradient, #0A0F1E);
+    background-image:
+      radial-gradient(ellipse at 15% 40%, rgba(16, 217, 160, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 15%, rgba(124, 111, 247, 0.05) 0%, transparent 55%),
+      linear-gradient(180deg, #0A0F1E 0%, #0D1525 100%);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    padding-top: var(--safe-area-top);
+    padding-bottom: var(--safe-area-bottom);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.6);
+    cursor: pointer;
   }
 }
+
+/* ============================================
+   COMPONENT UTILITIES
+   ============================================ */
+
+@layer components {
+
+  /* --- Glass Cards --- */
+  .glass-card {
+    background: linear-gradient(145deg, rgba(26, 34, 53, 0.9) 0%, rgba(15, 22, 42, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.35),
+      0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-card-elevated {
+    background: linear-gradient(145deg, rgba(31, 45, 66, 0.95) 0%, rgba(20, 30, 50, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 20px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.45),
+      0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-overlay {
+    background: rgba(10, 15, 30, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* --- Glow Accents --- */
+  .glow-primary {
+    box-shadow: 0 0 24px rgba(16, 217, 160, 0.25), 0 0 8px rgba(16, 217, 160, 0.15);
+  }
+
+  .glow-primary-sm {
+    box-shadow: 0 0 12px rgba(16, 217, 160, 0.2);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(245, 197, 66, 0.2);
+  }
+
+  /* --- Premium Button --- */
+  .btn-primary {
+    @apply relative overflow-hidden font-bold text-sm transition-all duration-200;
+    background: linear-gradient(135deg, #10D9A0 0%, #0BB882 100%);
+    box-shadow: 0 4px 20px rgba(16, 217, 160, 0.35), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+    color: #0A1A12;
+    border-radius: 14px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(16, 217, 160, 0.45), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+  }
+
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 12px rgba(16, 217, 160, 0.25);
+  }
+
+  .btn-secondary {
+    @apply font-semibold text-sm transition-all duration-150;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #8B9DC3;
+    border-radius: 12px;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #F0F4FF;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-danger {
+    @apply font-semibold text-sm transition-all duration-150;
+    background: rgba(255, 107, 107, 0.12);
+    border: 1px solid rgba(255, 107, 107, 0.25);
+    color: #FF8080;
+    border-radius: 12px;
+  }
+
+  .btn-danger:hover {
+    background: rgba(255, 107, 107, 0.2);
+  }
+
+  /* --- Status Badge --- */
+  .badge {
+    @apply inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+
+  .badge-paid {
+    background: rgba(16, 217, 160, 0.15);
+    color: #10D9A0;
+    border: 1px solid rgba(16, 217, 160, 0.25);
+  }
+
+  .badge-overdue {
+    background: rgba(255, 107, 107, 0.15);
+    color: #FF8080;
+    border: 1px solid rgba(255, 107, 107, 0.25);
+  }
+
+  .badge-waiting {
+    background: rgba(245, 197, 66, 0.15);
+    color: #F5C542;
+    border: 1px solid rgba(245, 197, 66, 0.25);
+  }
+
+  .badge-scheduled {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38BDF8;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+  }
+
+  /* --- Form Inputs --- */
+  .input-dark {
+    @apply w-full text-text-primary placeholder-text-muted;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    transition: all 0.15s ease;
+  }
+
+  .input-dark:focus {
+    outline: none;
+    border-color: rgba(16, 217, 160, 0.4);
+    background: rgba(16, 217, 160, 0.04);
+    box-shadow: 0 0 0 3px rgba(16, 217, 160, 0.08);
+  }
+
+  /* --- Divider --- */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+  }
+
+  /* --- Haptic active --- */
+  .haptic-active {
+    @apply transition-transform duration-150;
+  }
+
+  .haptic-active:active {
+    transform: scale(0.96);
+  }
+
+  /* --- Swipe hint animation --- */
+  .swipe-hint {
+    animation: swipeHint 1.5s ease-in-out 1s 1;
+  }
+
+  /* --- Kanban status line --- */
+  .status-bar {
+    width: 4px;
+    border-radius: 2px 0 0 2px;
+  }
+
+  /* --- Amount display --- */
+  .amount-display {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ============================================
+   CUSTOM ANIMATIONS  
+   ============================================ */
 
 @layer utilities {
-  .glass-card {
-    @apply bg-white border border-slate-200 shadow-lg shadow-slate-200/50 rounded-2xl;
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out both;
   }
-  
-  .haptic-active {
-    @apply active:scale-95 transition-transform duration-150;
+
+  .animate-slide-up {
+    animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
-  
-  .blur-privacy {
-    @apply blur-md select-none transition-all duration-300;
+
+  .animate-bounce-in {
+    animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes swipeHint {
+
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    30% {
+      transform: translateX(16px);
+    }
+
+    60% {
+      transform: translateX(4px);
+    }
   }
 }
 
-/* Custom scrollbar for webkit */
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   SAFE AREA (Capacitor / iOS notch)
+   ============================================ */
+
+.safe-top {
+  padding-top: max(16px, env(safe-area-inset-top));
+}
+
+.safe-bottom {
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
 }

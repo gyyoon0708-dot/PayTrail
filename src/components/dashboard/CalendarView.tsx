@@ -14,6 +14,8 @@ interface CalendarProps {
     onSelectDate: (date: Date) => void;
 }
 
+const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
+
 export function CalendarView({ currentMonth, onMonthChange, selectedDate, onSelectDate }: CalendarProps) {
     const { tasks } = useStore();
 
@@ -33,71 +35,86 @@ export function CalendarView({ currentMonth, onMonthChange, selectedDate, onSele
 
         if (dayTasks.length === 0 && !isWorkDay) return null;
 
-        const hasOverdue = dayTasks.some(t => t.status === 'OVERDUE');
-        const hasWaiting = dayTasks.some(t => t.status === 'WAITING');
-        const hasScheduled = dayTasks.some(t => t.status === 'SCHEDULED');
-        const hasPaid = dayTasks.some(t => t.status === 'PAID');
-
         return (
-            <div className="flex gap-0.5 mt-1 justify-center flex-wrap max-w-[80%] mx-auto">
-                {isWorkDay && <div className="w-1.5 h-1.5 rounded-full bg-blue-500" title="Work Day" />}
-                {hasOverdue && <div className="w-1.5 h-1.5 rounded-full bg-danger animate-pulse-soft" />}
-                {hasWaiting && !hasOverdue && <div className="w-1.5 h-1.5 rounded-full bg-warning" />}
-                {hasPaid && !hasWaiting && !hasOverdue && <div className="w-1.5 h-1.5 rounded-full bg-primary" />}
-                {hasScheduled && !hasPaid && !hasWaiting && !hasOverdue && <div className="w-1.5 h-1.5 rounded-full bg-slate-500" />}
-                {dayTasks.length > 1 && <div className="w-1 h-1 rounded-full bg-slate-400 mt-[1px]" />}
+            <div className="flex gap-0.5 mt-0.5 justify-center">
+                {isWorkDay && <div className="w-1 h-1 rounded-full" style={{ background: '#38BDF8' }} />}
+                {dayTasks.some(t => t.status === 'OVERDUE') && <div className="w-1 h-1 rounded-full" style={{ background: '#FF6B6B' }} />}
+                {dayTasks.some(t => t.status === 'WAITING') && <div className="w-1 h-1 rounded-full" style={{ background: '#F5C542' }} />}
+                {dayTasks.some(t => t.status === 'PAID') && <div className="w-1 h-1 rounded-full" style={{ background: '#10D9A0' }} />}
+                {dayTasks.some(t => t.status === 'SCHEDULED') && !dayTasks.some(t => t.status !== 'SCHEDULED') && (
+                    <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(255,255,255,0.25)' }} />
+                )}
             </div>
         );
     };
 
     return (
-        <div className="glass-card p-4">
-            {/* Calendar Header with Navigation */}
+        <div className="glass-card p-4 mb-4">
+            {/* Header */}
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-slate-900">
-                    {format(currentMonth, 'MMMM yyyy')}
+                <h2 className="text-base font-bold text-text-primary">
+                    {format(currentMonth, 'yyyy년 M월')}
                 </h2>
-                <div className="flex gap-2">
-                    <button onClick={prevMonth} className="p-1 rounded bg-slate-100 text-slate-500 hover:text-slate-900 haptic-active">
-                        <ChevronLeft size={20} />
+                <div className="flex gap-1">
+                    <button onClick={prevMonth} className="w-8 h-8 rounded-xl flex items-center justify-center haptic-active transition-all"
+                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <ChevronLeft size={16} className="text-text-secondary" />
                     </button>
-                    <button onClick={nextMonth} className="p-1 rounded bg-slate-100 text-slate-500 hover:text-slate-900 haptic-active">
-                        <ChevronRight size={20} />
+                    <button onClick={nextMonth} className="w-8 h-8 rounded-xl flex items-center justify-center haptic-active transition-all"
+                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <ChevronRight size={16} className="text-text-secondary" />
                     </button>
                 </div>
             </div>
 
-            {/* Days of Week */}
-            <div className="grid grid-cols-7 gap-1 mb-2">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="text-center text-xs font-medium text-slate-500">
+            {/* Weekdays header */}
+            <div className="grid grid-cols-7 mb-2">
+                {WEEKDAYS.map((day, i) => (
+                    <div key={day} className={cn(
+                        'text-center text-[11px] font-semibold py-1',
+                        i === 0 ? 'text-danger' : i === 6 ? 'text-accent-sky' : 'text-text-muted'
+                    )}>
                         {day}
                     </div>
                 ))}
             </div>
 
-            {/* Calendar Grid */}
+            {/* Days grid */}
             <div className="grid grid-cols-7 gap-1">
                 {daysInMonth.map((date, i) => {
                     const isSelected = selectedDate ? isSameDay(selectedDate, date) : false;
                     const isCurrentMonth = isSameMonth(date, currentMonth);
                     const isDateToday = isToday(date);
+                    const dayOfWeek = date.getDay(); // 0 = Sun, 6 = Sat
 
                     return (
                         <button
                             key={i}
                             onClick={() => onSelectDate(date)}
                             className={cn(
-                                "h-12 flex flex-col items-center justify-start pt-1.5 rounded-xl transition-all haptic-active border border-transparent relative",
-                                !isCurrentMonth && "opacity-30",
-                                isSelected && "bg-primary/10 border-primary/30",
-                                !isSelected && isDateToday && "bg-white border-primary/20 shadow-sm",
-                                !isSelected && !isDateToday && "hover:bg-slate-50"
+                                'flex flex-col items-center justify-start pt-1.5 rounded-xl h-11 haptic-active transition-all duration-150',
+                                !isCurrentMonth && 'opacity-20',
                             )}
+                            style={{
+                                background: isSelected
+                                    ? 'rgba(16,217,160,0.15)'
+                                    : isDateToday
+                                        ? 'rgba(16,217,160,0.08)'
+                                        : 'transparent',
+                                border: isSelected
+                                    ? '1px solid rgba(16,217,160,0.4)'
+                                    : isDateToday
+                                        ? '1px solid rgba(16,217,160,0.2)'
+                                        : '1px solid transparent',
+                            }}
                         >
                             <span className={cn(
-                                "text-sm font-medium",
-                                isSelected ? "text-primary font-bold" : (isCurrentMonth ? "text-slate-700" : "text-slate-400")
+                                'text-xs font-semibold leading-none',
+                                isSelected ? 'text-primary-400' :
+                                    isDateToday ? 'text-primary-400' :
+                                        dayOfWeek === 0 ? 'text-danger/70' :
+                                            dayOfWeek === 6 ? 'text-accent-sky/70' :
+                                                isCurrentMonth ? 'text-text-primary' : 'text-text-muted'
                             )}>
                                 {format(date, 'd')}
                             </span>

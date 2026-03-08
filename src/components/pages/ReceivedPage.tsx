@@ -13,184 +13,156 @@ interface Props {
 }
 
 export function ReceivedPage({ onClose, onEditTask }: Props) {
-    const { tasks, userSettings, updateTask, subscription } = useStore();
+    const { tasks, userSettings, updateTask } = useStore();
     const { t } = useTranslation();
     const [currentMonth, setCurrentMonth] = useState(new Date());
 
-    const monthYear = currentMonth.getFullYear();
-    const monthIdx = currentMonth.getMonth();
+    const yr = currentMonth.getFullYear();
+    const mo = currentMonth.getMonth();
 
-    // Filter tasks for the current month (by due date)
     const monthTasks = tasks.filter(task => {
         const d = new Date(task.due_date);
-        return d.getFullYear() === monthYear && d.getMonth() === monthIdx;
-    });
+        return d.getFullYear() === yr && d.getMonth() === mo;
+    }).sort((a, b) => a.due_date.localeCompare(b.due_date));
 
     const paidTasks = monthTasks.filter(t => t.status === 'PAID');
     const unpaidTasks = monthTasks.filter(t => t.status !== 'PAID');
 
-    const totalExpected = monthTasks.reduce((sum, task) => {
-        if (task.status === 'PAID') {
-            return sum + (task.received_amount || (task.amount - task.tax_deducted));
-        }
-        return sum + (task.amount - task.tax_deducted - task.received_amount);
-    }, 0);
-
-    const totalReceived = paidTasks.reduce((sum, task) => {
-        return sum + (task.received_amount || (task.amount - task.tax_deducted));
-    }, 0);
+    const totalReceived = paidTasks.reduce((s, t) => s + (t.received_amount || (t.amount - t.tax_deducted)), 0);
+    const totalExpected = unpaidTasks.reduce((s, t) => s + (t.amount - t.tax_deducted - t.received_amount), 0);
+    const rate = monthTasks.length > 0 ? Math.round((paidTasks.length / monthTasks.length) * 100) : 0;
 
     const handleTogglePaid = (task: Task) => {
         if (task.status === 'PAID') {
-            // Undo payment
-            const dueDateObj = new Date(task.due_date);
-            dueDateObj.setHours(0, 0, 0, 0);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            let newStatus: TaskStatus = 'SCHEDULED';
-            if (dueDateObj < today) newStatus = 'OVERDUE';
-            else if (dueDateObj.getTime() === today.getTime()) newStatus = 'WAITING';
-
-            updateTask(task.id, { status: newStatus, received_amount: 0 });
+            const due = new Date(task.due_date); due.setHours(0, 0, 0, 0);
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            let s: TaskStatus = 'SCHEDULED';
+            if (due < today) s = 'OVERDUE';
+            else if (due.getTime() === today.getTime()) s = 'WAITING';
+            updateTask(task.id, { status: s, received_amount: 0 });
         } else {
-            // Mark as paid
-            if (userSettings.audioEnabled) {
-                const audio = new Audio('/kaching.mp3');
-                audio.play().catch(() => { });
-            }
-            confetti({ particleCount: 80, spread: 60, origin: { y: 0.5 }, colors: ['#15803D', '#10B981', '#FCD34D'] });
-            updateTask(task.id, {
-                status: 'PAID',
-                received_amount: task.amount - task.tax_deducted,
-                paid_date: new Date().toISOString(),
-            });
+            if (userSettings.audioEnabled) { new Audio('/kaching.mp3').play().catch(() => { }); }
+            confetti({ particleCount: 60, spread: 55, origin: { y: 0.5 }, colors: ['#10D9A0', '#F5C542'] });
+            updateTask(task.id, { status: 'PAID', received_amount: task.amount - task.tax_deducted, paid_date: new Date().toISOString() });
         }
     };
-
-    const prevMonth = () => setCurrentMonth(m => subMonths(m, 1));
-    const nextMonth = () => setCurrentMonth(m => addMonths(m, 1));
 
     const renderTask = (task: Task) => {
         const isPaid = task.status === 'PAID';
         const net = task.amount - task.tax_deducted;
 
         return (
-            <div
-                key={task.id}
-                className={`flex items-center gap-3 p-4 rounded-2xl border transition-all ${isPaid
-                        ? 'bg-primary/5 border-primary/20'
-                        : 'bg-white border-slate-200'
-                    }`}
-            >
-                {/* Checkbox */}
-                <button
-                    onClick={() => handleTogglePaid(task)}
-                    className="flex-shrink-0 haptic-active"
-                >
-                    {isPaid ? (
-                        <CheckCircle2 size={26} className="text-primary" />
-                    ) : (
-                        <Circle size={26} className="text-slate-300 hover:text-primary transition-colors" />
-                    )}
+            <div key={task.id} className={`flex items-center gap-3 p-4 rounded-[16px] mb-2 transition-all duration-200 animate-fade-in`}
+                style={{
+                    background: isPaid ? 'rgba(16,217,160,0.06)' : 'linear-gradient(145deg, rgba(26,34,53,0.9) 0%, rgba(15,22,42,0.95) 100%)',
+                    border: `1px solid ${isPaid ? 'rgba(16,217,160,0.2)' : 'rgba(255,255,255,0.06)'}`,
+                }}>
+                <button onClick={() => handleTogglePaid(task)} className="shrink-0 haptic-active">
+                    {isPaid
+                        ? <CheckCircle2 size={26} style={{ color: '#10D9A0' }} />
+                        : <Circle size={26} className="text-text-disabled hover:text-primary transition-colors" />}
                 </button>
 
-                {/* Info */}
                 <div className="flex-1 min-w-0" onClick={() => onEditTask(task.id)}>
-                    <p className={`font-bold text-base truncate ${isPaid ? 'text-slate-400 line-through' : 'text-slate-900'}`}>
+                    <p className={`font-bold text-sm truncate ${isPaid ? 'text-text-muted line-through' : 'text-text-primary'}`}>
                         {task.company}
                     </p>
-                    <p className="text-xs text-slate-400 mt-0.5">{t('dueDate')}: {task.due_date}</p>
-                    {task.memo && <p className="text-xs text-slate-400 italic truncate mt-0.5">{task.memo}</p>}
+                    {task.work_date_start && (
+                        <p className="text-xs text-text-muted mt-0.5">
+                            {task.work_date_start}{task.work_date_end && task.work_date_end !== task.work_date_start ? ` ~ ${task.work_date_end}` : ''}
+                        </p>
+                    )}
                 </div>
 
-                {/* Amount */}
-                <div className="text-right flex-shrink-0">
-                    <p className={`font-black text-lg ${isPaid ? 'text-primary' : 'text-slate-900'}`}>
+                <div className="text-right shrink-0">
+                    <p className={`font-black text-base amount-display ${isPaid ? 'text-primary-400' : 'text-text-primary'}`}>
                         {formatCurrency(net, userSettings.currency)}
                     </p>
-                    {isPaid && (
-                        <span className="text-xs font-bold bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                            {t('paid')}
-                        </span>
-                    )}
+                    {isPaid && <span className="badge badge-paid text-[10px] mt-0.5">{t('paid')}</span>}
                 </div>
             </div>
         );
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex flex-col bg-slate-50">
+        <div className="fixed inset-0 z-50 flex flex-col" style={{ background: 'linear-gradient(180deg, #0A0F1E 0%, #0D1525 100%)' }}>
             {/* Header */}
-            <div className="bg-white border-b border-slate-100 px-4 pt-10 pb-4 shadow-sm">
-                <div className="flex items-center gap-3 max-w-md mx-auto">
-                    <button
-                        onClick={onClose}
-                        className="p-2 rounded-full hover:bg-slate-100 text-slate-600 transition-colors"
-                    >
-                        <X size={22} />
+            <div className="safe-top px-4 pt-4 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="flex items-center gap-3 max-w-md mx-auto mb-4">
+                    <button onClick={onClose}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center haptic-active"
+                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <X size={18} className="text-text-secondary" />
                     </button>
                     <div className="flex-1">
-                        <h1 className="text-xl font-bold text-slate-900">{t('received')} 관리</h1>
-                        <p className="text-xs text-slate-500">건별 수령 여부 확인 및 체크</p>
+                        <h1 className="text-lg font-bold text-text-primary">수령 관리</h1>
+                        <p className="text-xs text-text-muted">건별 수령 체크</p>
                     </div>
                 </div>
 
-                {/* Month Navigator */}
-                <div className="flex items-center justify-between max-w-md mx-auto mt-4">
-                    <button onClick={prevMonth} className="p-2 rounded-full hover:bg-slate-100 transition-colors">
-                        <ChevronLeft size={20} className="text-slate-600" />
+                {/* Month nav */}
+                <div className="flex items-center justify-between max-w-md mx-auto mb-4">
+                    <button onClick={() => setCurrentMonth(m => subMonths(m, 1))}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center haptic-active"
+                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <ChevronLeft size={18} className="text-text-secondary" />
                     </button>
-                    <span className="text-base font-bold text-slate-800">
-                        {format(currentMonth, 'yyyy년 M월')}
-                    </span>
-                    <button onClick={nextMonth} className="p-2 rounded-full hover:bg-slate-100 transition-colors">
-                        <ChevronRight size={20} className="text-slate-600" />
+                    <span className="text-base font-bold text-text-primary">{format(currentMonth, 'yyyy년 M월')}</span>
+                    <button onClick={() => setCurrentMonth(m => addMonths(m, 1))}
+                        className="w-9 h-9 rounded-xl flex items-center justify-center haptic-active"
+                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <ChevronRight size={18} className="text-text-secondary" />
                     </button>
                 </div>
 
-                {/* Summary Bar */}
-                <div className="max-w-md mx-auto mt-3 grid grid-cols-2 gap-3">
-                    <div className="bg-slate-50 rounded-xl px-3 py-2 text-center">
-                        <p className="text-xs text-slate-500 mb-0.5">수령 완료</p>
-                        <p className="font-bold text-primary text-sm">{formatCurrency(totalReceived, userSettings.currency)}</p>
+                {/* Progress summary */}
+                <div className="max-w-md mx-auto glass-card p-4">
+                    <div className="flex items-center justify-between mb-2">
+                        <div>
+                            <p className="text-xs text-text-muted">수령 완료</p>
+                            <p className="text-xl font-black amount-display" style={{ color: '#10D9A0' }}>
+                                {formatCurrency(totalReceived, userSettings.currency)}
+                            </p>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-xs text-text-muted">미수령</p>
+                            <p className="text-xl font-black amount-display text-text-primary">
+                                {formatCurrency(totalExpected, userSettings.currency)}
+                            </p>
+                        </div>
                     </div>
-                    <div className="bg-slate-50 rounded-xl px-3 py-2 text-center">
-                        <p className="text-xs text-slate-500 mb-0.5">전체 ({monthTasks.length}건)</p>
-                        <p className="font-bold text-slate-700 text-sm">{paidTasks.length} / {monthTasks.length} 완료</p>
+                    <div className="h-2 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                        <div className="h-full rounded-full transition-all duration-500"
+                            style={{ width: `${rate}%`, background: 'linear-gradient(90deg, #10D9A0, #0BB882)' }} />
                     </div>
+                    <p className="text-xs text-text-muted mt-1.5 text-center">{paidTasks.length} / {monthTasks.length}건 완료 ({rate}%)</p>
                 </div>
             </div>
 
-            {/* Task List */}
-            <div className="flex-1 overflow-y-auto px-4 py-4">
-                <div className="max-w-md mx-auto space-y-2">
-                    {monthTasks.length === 0 ? (
-                        <div className="text-center py-16">
-                            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-3xl">📋</span>
-                            </div>
-                            <p className="text-slate-500 font-medium">이달의 일정이 없습니다</p>
-                        </div>
-                    ) : (
-                        <>
-                            {/* Unpaid first */}
-                            {unpaidTasks.length > 0 && (
-                                <>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide px-1 pt-1">미수령 ({unpaidTasks.length}건)</p>
-                                    {unpaidTasks.map(renderTask)}
-                                </>
-                            )}
-                            {/* Paid tasks */}
-                            {paidTasks.length > 0 && (
-                                <>
-                                    <p className="text-xs font-bold text-primary uppercase tracking-wide px-1 pt-3">수령 완료 ({paidTasks.length}건)</p>
-                                    {paidTasks.map(renderTask)}
-                                </>
-                            )}
-                        </>
-                    )}
-                </div>
+            {/* List */}
+            <div className="flex-1 overflow-y-auto px-4 py-4 max-w-md mx-auto w-full">
+                {monthTasks.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center h-full gap-4">
+                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl"
+                            style={{ background: 'rgba(255,255,255,0.04)' }}>📋</div>
+                        <p className="text-text-muted text-sm">이달의 일정이 없습니다</p>
+                    </div>
+                ) : (
+                    <>
+                        {unpaidTasks.length > 0 && (
+                            <>
+                                <p className="text-xs font-bold text-text-muted uppercase tracking-wider mb-2">미수령 ({unpaidTasks.length})</p>
+                                {unpaidTasks.map(renderTask)}
+                            </>
+                        )}
+                        {paidTasks.length > 0 && (
+                            <>
+                                <p className="text-xs font-bold uppercase tracking-wider mb-2 mt-4" style={{ color: '#10D9A0' }}>완료 ({paidTasks.length})</p>
+                                {paidTasks.map(renderTask)}
+                            </>
+                        )}
+                    </>
+                )}
             </div>
         </div>
     );

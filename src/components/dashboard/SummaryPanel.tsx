@@ -1,7 +1,7 @@
 import { useStore } from '../../store';
 import { formatCurrency } from '../../lib/utils';
 import { useTranslation } from '../../lib/i18n';
-import { Wallet, Activity } from 'lucide-react';
+import { TrendingUp, ChevronRight } from 'lucide-react';
 
 interface Props {
     currentMonth: Date;
@@ -17,55 +17,87 @@ export function SummaryPanel({ currentMonth, onOpenReceived }: Props) {
 
     let expected = 0;
     let received = 0;
+    let receivedCount = 0;
+    let pendingCount = 0;
 
     tasks.forEach(task => {
         const dueDate = new Date(task.due_date);
         const isThisMonth = dueDate.getFullYear() === currentMonthYear && dueDate.getMonth() === currentMonthIdx;
-
         const remaining = task.amount - task.tax_deducted - task.received_amount;
 
         if (task.status === 'PAID') {
             if (isThisMonth) {
                 received += task.received_amount || (task.amount - task.tax_deducted);
+                receivedCount++;
             }
         } else {
-            if (isThisMonth && (task.status === 'WAITING' || task.status === 'OVERDUE' || task.status === 'SCHEDULED')) {
+            if (isThisMonth) {
                 expected += remaining;
+                pendingCount++;
             }
         }
     });
 
+    const receivedRate = (receivedCount + pendingCount) > 0
+        ? Math.round((receivedCount / (receivedCount + pendingCount)) * 100)
+        : 0;
+
     return (
-        <div className="flex flex-col gap-3 mb-6">
-            {/* Expected Gross - Full Width */}
-            <div className="glass-card p-4 bg-gradient-to-br from-white to-slate-50">
-                <div className="flex items-center gap-2 text-slate-500 mb-1">
-                    <Wallet size={16} />
-                    <span className="text-sm font-medium">{t('expectedGross')}</span>
+        <div className="space-y-3 mb-5">
+            {/* Expected Gross */}
+            <div className="glass-card p-4 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-30 pointer-events-none"
+                    style={{ background: 'radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.1) 0%, transparent 60%)' }} />
+                <div className="flex items-center gap-2 mb-2">
+                    <div className="w-7 h-7 rounded-xl flex items-center justify-center" style={{ background: 'rgba(56,189,248,0.12)' }}>
+                        <TrendingUp size={14} style={{ color: '#38BDF8' }} />
+                    </div>
+                    <span className="text-text-secondary text-xs font-medium">{t('expectedGross')}</span>
                 </div>
-                <div className="text-3xl font-bold text-slate-800 tracking-tight">
-                    {formatCurrency(expected, userSettings.currency)}
-                </div>
-                <p className="text-xs text-slate-400 mt-1">이번 달 미수령 예상금액</p>
+                <p className="text-2xl font-black amount-display text-text-primary">{formatCurrency(expected, userSettings.currency)}</p>
+                {pendingCount > 0 && (
+                    <p className="text-text-muted text-xs mt-1">{pendingCount}건 미수령</p>
+                )}
             </div>
 
-            {/* Received - Clickable to open Received Page */}
-            <div
-                className="glass-card p-4 border-primary/20 bg-gradient-to-br from-primary/5 to-white shadow-primary/5 cursor-pointer hover:bg-primary/10 transition-colors haptic-active"
+            {/* Received — Clickable */}
+            <button
+                className="w-full glass-card p-4 relative overflow-hidden text-left group haptic-active"
                 onClick={onOpenReceived}
             >
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-primary mb-1">
-                        <Activity size={16} />
-                        <span className="text-sm font-medium">{t('received')}</span>
+                {/* Glow on hover */}
+                <div className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{ boxShadow: '0 0 24px rgba(16,217,160,0.12) inset' }} />
+
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-xl flex items-center justify-center" style={{ background: 'rgba(16,217,160,0.12)' }}>
+                            <span className="text-sm">✓</span>
+                        </div>
+                        <span className="text-text-secondary text-xs font-medium">{t('received')}</span>
                     </div>
-                    <span className="text-xs text-primary font-semibold bg-primary/10 px-2 py-0.5 rounded-full">관리하기 →</span>
+                    <div className="flex items-center gap-1 text-xs font-semibold" style={{ color: '#10D9A0' }}>
+                        관리하기
+                        <ChevronRight size={14} />
+                    </div>
                 </div>
-                <div className="text-3xl font-bold text-primary tracking-tight">
-                    {formatCurrency(received, userSettings.currency)}
+
+                <div className="flex items-end justify-between">
+                    <p className="text-2xl font-black amount-display" style={{ color: '#10D9A0' }}>
+                        {formatCurrency(received, userSettings.currency)}
+                    </p>
+                    {/* Progress bar */}
+                    <div className="text-right">
+                        <p className="text-text-muted text-xs mb-1">{receivedRate}% 완료</p>
+                        <div className="w-20 h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                            <div
+                                className="h-full rounded-full transition-all duration-500"
+                                style={{ width: `${receivedRate}%`, background: 'linear-gradient(90deg, #10D9A0, #0BB882)' }}
+                            />
+                        </div>
+                    </div>
                 </div>
-                <p className="text-xs text-primary/60 mt-1">탭하여 건별 수령 확인</p>
-            </div>
+            </button>
         </div>
     );
 }

@@ -39,12 +39,10 @@ export function TaskModal({ onClose, initialDate, editTaskId }: Props) {
 
         const todayStr = new Date().toISOString().split('T')[0];
         if (initialDate) {
-            const dateStr = initialDate.toISOString().split('T')[0];
-            setWorkDateStart(dateStr);
-            setWorkDateEnd(dateStr);
+            const d = initialDate.toISOString().split('T')[0];
+            setWorkDateStart(d); setWorkDateEnd(d);
         } else {
-            setWorkDateStart(todayStr);
-            setWorkDateEnd(todayStr);
+            setWorkDateStart(todayStr); setWorkDateEnd(todayStr);
         }
 
         if (draftTask) {
@@ -63,146 +61,105 @@ export function TaskModal({ onClose, initialDate, editTaskId }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         const amount = Number(amountStr);
-        // due_date defaults to work_date_end, or workDateStart, or today
         const dueDate = workDateEnd || workDateStart || new Date().toISOString().split('T')[0];
 
         if (editTaskId) {
-            updateTask(editTaskId, {
-                company,
-                amount,
-                tax_deducted: 0,
-                due_date: dueDate,
-                work_date_start: workDateStart || undefined,
-                work_date_end: workDateEnd || undefined,
-                is_recurring: isRecurring,
-                recurring_type: isRecurring ? recurringType : 'NONE',
-                memo,
-            });
+            updateTask(editTaskId, { company, amount, tax_deducted: 0, due_date: dueDate, work_date_start: workDateStart || undefined, work_date_end: workDateEnd || undefined, is_recurring: isRecurring, recurring_type: isRecurring ? recurringType : 'NONE', memo });
         } else {
-            addTask({
-                company,
-                amount,
-                tax_deducted: 0,
-                received_amount: 0,
-                status: 'SCHEDULED',
-                due_date: dueDate,
-                work_date_start: workDateStart || undefined,
-                work_date_end: workDateEnd || undefined,
-                is_recurring: isRecurring,
-                recurring_type: isRecurring ? recurringType : 'NONE',
-                memo,
-            });
+            addTask({ company, amount, tax_deducted: 0, received_amount: 0, status: 'SCHEDULED', due_date: dueDate, work_date_start: workDateStart || undefined, work_date_end: workDateEnd || undefined, is_recurring: isRecurring, recurring_type: isRecurring ? recurringType : 'NONE', memo });
         }
 
         setDraftTask(null);
         onClose();
     };
 
+    const labelCls = 'block text-xs font-semibold text-text-secondary mb-1.5 uppercase tracking-wide';
+    const inputCls = 'input-dark';
+
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-            <div className="bg-white border border-slate-200 w-full sm:max-w-md sm:rounded-2xl shadow-2xl flex flex-col rounded-t-2xl max-h-[92vh]">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+            style={{ background: 'rgba(5,8,20,0.7)', backdropFilter: 'blur(12px)' }}>
+            <div className="w-full sm:max-w-md flex flex-col max-h-[92vh] animate-slide-up"
+                style={{
+                    background: 'linear-gradient(180deg, #1F2D42 0%, #111827 100%)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '24px 24px 0 0',
+                    boxShadow: '0 -16px 60px rgba(0,0,0,0.5)',
+                }}>
+                {/* Handle */}
+                <div className="flex justify-center pt-3">
+                    <div className="w-10 h-1 rounded-full" style={{ background: 'rgba(255,255,255,0.15)' }} />
+                </div>
+
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-slate-100">
-                    <h2 className="text-xl font-bold text-slate-900">{editTaskId ? t('editTask') : t('newTask')}</h2>
-                    <button onClick={handleClose} className="p-2 text-slate-400 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 rounded-full haptic-active">
-                        <X size={20} />
+                <div className="flex items-center justify-between px-5 py-3">
+                    <h2 className="text-lg font-bold text-text-primary">{editTaskId ? t('editTask') : t('newTask')}</h2>
+                    <button onClick={handleClose}
+                        className="w-8 h-8 rounded-xl flex items-center justify-center haptic-active"
+                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <X size={16} className="text-text-secondary" />
                     </button>
                 </div>
 
+                <div className="divider mx-5" />
+
                 {/* Form */}
-                <div className="p-4 overflow-y-auto">
-                    <form id="task-form" onSubmit={handleSubmit} className="space-y-4">
-
-                        {/* Client / Company */}
+                <div className="flex-1 overflow-y-auto px-5 py-4">
+                    <form id="task-form" onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-1">{t('clientCompany')}</label>
-                            <input
-                                required
-                                type="text"
-                                value={company}
-                                onChange={e => setCompany(e.target.value)}
-                                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm text-base"
-                                placeholder="클라이언트 또는 회사명"
-                            />
+                            <label className={labelCls}>{t('clientCompany')}</label>
+                            <input required type="text" value={company} onChange={e => setCompany(e.target.value)}
+                                className={inputCls} placeholder="클라이언트 / 회사명" />
                         </div>
 
-                        {/* Amount — simple number */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-1">{t('amount')}</label>
-                            <input
-                                required
-                                type="number"
-                                value={amountStr}
-                                onChange={e => setAmountStr(e.target.value)}
-                                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm text-base"
-                                placeholder="0"
-                                min="0"
-                            />
+                            <label className={labelCls}>{t('amount')}</label>
+                            <input required type="number" value={amountStr} onChange={e => setAmountStr(e.target.value)}
+                                className={`${inputCls} text-xl font-bold`} placeholder="0" min="0" />
                         </div>
 
-                        {/* Work Dates */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-1">{t('workDate')}</label>
+                            <label className={labelCls}>작업 기간</label>
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <p className="text-xs text-slate-500 mb-1">시작일</p>
-                                    <input
-                                        type="date"
-                                        value={workDateStart}
-                                        onChange={e => {
-                                            setWorkDateStart(e.target.value);
-                                            // If end is empty or before start, sync end
-                                            if (!workDateEnd || workDateEnd < e.target.value) {
-                                                setWorkDateEnd(e.target.value);
-                                            }
-                                        }}
-                                        className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm text-sm"
-                                    />
+                                    <p className="text-xs text-text-muted mb-1">시작일</p>
+                                    <input type="date" value={workDateStart}
+                                        onChange={e => { setWorkDateStart(e.target.value); if (!workDateEnd || workDateEnd < e.target.value) setWorkDateEnd(e.target.value); }}
+                                        className={inputCls} style={{ fontSize: 13 }} />
                                 </div>
                                 <div>
-                                    <p className="text-xs text-slate-500 mb-1">종료일</p>
-                                    <input
-                                        type="date"
-                                        value={workDateEnd}
-                                        onChange={e => setWorkDateEnd(e.target.value)}
-                                        className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm text-sm"
-                                    />
+                                    <p className="text-xs text-text-muted mb-1">종료일</p>
+                                    <input type="date" value={workDateEnd} onChange={e => setWorkDateEnd(e.target.value)}
+                                        className={inputCls} style={{ fontSize: 13 }} />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Memo */}
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 mb-1">{t('memo')}</label>
-                            <textarea
-                                value={memo}
-                                onChange={e => setMemo(e.target.value)}
-                                rows={2}
-                                className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none shadow-sm text-sm"
-                                placeholder="메모 (선택사항)"
-                            />
+                            <label className={labelCls}>{t('memo')}</label>
+                            <textarea value={memo} onChange={e => setMemo(e.target.value)} rows={2}
+                                className={`${inputCls} resize-none`} placeholder="메모 (선택)" />
                         </div>
 
-                        {/* Recurring */}
-                        <div className="pt-2 border-t border-slate-100">
-                            <label className="flex items-center gap-2 cursor-pointer mb-3">
-                                <input
-                                    type="checkbox"
-                                    checked={isRecurring}
-                                    onChange={e => setIsRecurring(e.target.checked)}
-                                    className="w-4 h-4 rounded text-primary focus:ring-primary bg-slate-50 border-slate-300"
-                                />
-                                <span className="text-sm font-bold text-slate-700">{t('setRecurring')}</span>
+                        <div className="pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                            <label className="flex items-center gap-3 cursor-pointer mb-3">
+                                <div
+                                    onClick={() => setIsRecurring(!isRecurring)}
+                                    className="w-11 h-6 rounded-full transition-all duration-200 flex items-center px-1 haptic-active"
+                                    style={{ background: isRecurring ? '#10D9A0' : 'rgba(255,255,255,0.1)', cursor: 'pointer' }}
+                                >
+                                    <div
+                                        className="w-4 h-4 rounded-full transition-all duration-200"
+                                        style={{ background: 'white', transform: isRecurring ? 'translateX(20px)' : 'translateX(0)', boxShadow: '0 1px 4px rgba(0,0,0,0.3)' }}
+                                    />
+                                </div>
+                                <span className="text-sm font-medium text-text-secondary">{t('setRecurring')}</span>
                             </label>
 
                             {isRecurring && (
-                                <select
-                                    value={recurringType}
-                                    onChange={e => setRecurringType(e.target.value as RecurringType)}
-                                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm"
-                                >
+                                <select value={recurringType} onChange={e => setRecurringType(e.target.value as RecurringType)}
+                                    className={inputCls}>
                                     <option value="NONE" disabled>{t('none')}</option>
                                     <option value="WEEKLY">{t('weekly')}</option>
                                     <option value="MONTHLY">{t('monthly')}</option>
@@ -213,13 +170,9 @@ export function TaskModal({ onClose, initialDate, editTaskId }: Props) {
                     </form>
                 </div>
 
-                {/* Footer */}
-                <div className="p-4 border-t border-slate-100 bg-slate-50 rounded-b-2xl">
-                    <button
-                        type="submit"
-                        form="task-form"
-                        className="w-full py-3.5 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold haptic-active shadow-lg shadow-primary/20 text-base"
-                    >
+                {/* Submit */}
+                <div className="px-5 py-4 safe-bottom" style={{ background: 'rgba(10,15,30,0.4)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <button type="submit" form="task-form" className="btn-primary w-full py-4 text-base font-bold">
                         {t('save')}
                     </button>
                 </div>
